@@ -25,7 +25,7 @@ public class PrincipalDetails implements org.springframework.security.core.userd
 
     @Override
     public String getUsername() {
-        return member.getLoginId();
+        return member.getPhoneNumber();
     }
 
     @Override

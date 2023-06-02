@@ -1,7 +1,7 @@
 package kr.teentime.mainApi.config.security.userDetails;
 
 import kr.teentime.mainApi.domain.Member;
-import kr.teentime.mainApi.repository.MemberRepo;
+import kr.teentime.mainApi.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +13,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private MemberRepo memberRepo;
+    private MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> member = memberRepo.findByLoginId(username);
+        Optional<Member> member = memberRepository.findByPhoneNumber(username);
 
         if (member.isEmpty()) throw new UsernameNotFoundException("member not found");
 
