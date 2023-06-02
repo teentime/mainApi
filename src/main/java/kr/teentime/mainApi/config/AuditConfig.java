@@ -18,6 +18,8 @@ public class AuditConfig implements AuditorAware<Long> {
     public Optional<Long> getCurrentAuditor() {
         Member loginMember = Util.getLoginMember();
 
+        if (loginMember == null) return Optional.empty();
+
         return Optional.ofNullable(loginMember.getId());
     }
 }

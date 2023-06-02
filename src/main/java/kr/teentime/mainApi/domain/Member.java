@@ -2,11 +2,11 @@ package kr.teentime.mainApi.domain;
 
 import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.basic.BasicTime;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Builder
 @Entity @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BasicTime {
 
@@ -24,9 +24,12 @@ public class Member extends BasicTime {
             unique = true)
     private String nickName;
 
-    @Column(nullable = false,
-            unique = true)
+    @Column(unique = true)
     private String email;
+
+    @Column(nullable = false,
+                unique = true)
+    private String authEmail;
 
     @Column(nullable = false,
             unique = true,
