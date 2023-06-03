@@ -1,6 +1,7 @@
 package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.dto.JoinDto;
+import kr.teentime.mainApi.dto.LoginDto;
 import kr.teentime.mainApi.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,4 +44,29 @@ class MemberServiceTest {
         assertNotNull(memberRepository.findByPhoneNumber("01000000000"));
     }
 
+    @Test
+    void login() {
+        // given
+        JoinDto joinDto = JoinDto.builder()
+                .authEmail("23y00000@pcs.hs.kr")
+                .password("testPassword")
+                .phoneNumber("01000000000")
+                .schoolId(1L)
+                .nickname("테스트")
+                .build();
+
+        memberService.join(joinDto);
+
+        LoginDto loginInfo = LoginDto.builder()
+                .loginId("01000000000")
+                .password("testPassword")
+                .build();
+
+        // when
+        Map<String, String> token = memberService.login(loginInfo);
+
+        // then
+        assertNotNull(token.get("accessToken"));
+        assertNotNull(token.get("refreshToken"));
+    }
 }
