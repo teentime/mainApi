@@ -4,6 +4,7 @@ import kr.teentime.mainApi.config.security.jwt.JwtConfig;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.dto.JoinDto;
 import kr.teentime.mainApi.dto.LoginDto;
+import kr.teentime.mainApi.dto.MemberLoginDto;
 import kr.teentime.mainApi.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -43,7 +44,7 @@ public class MemberService {
      * @param loginDto
      */
     public Map<String, String> login(LoginDto loginDto) {
-        Optional<Member> member = memberRepository.findMemberForLogin(loginDto.getLoginId());
+        Optional<MemberLoginDto> member = memberRepository.findMemberForLogin(loginDto.getLoginId());
 
         if (member.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), member.get().getPassword()))
             throw new UsernameNotFoundException("member not found");

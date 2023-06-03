@@ -1,6 +1,6 @@
 package kr.teentime.mainApi.repository.custom;
 
-import kr.teentime.mainApi.domain.Member;
+import kr.teentime.mainApi.dto.MemberLoginDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -8,5 +8,5 @@ import java.util.Optional;
 @Repository
 public interface MemberRepositoryCustom {
 
-    Optional<Member> findMemberForLogin(String loginId);
+    Optional<MemberLoginDto> findMemberForLogin(String loginId);
 }

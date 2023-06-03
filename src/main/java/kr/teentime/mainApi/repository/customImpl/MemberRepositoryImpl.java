@@ -1,13 +1,11 @@
 package kr.teentime.mainApi.repository.customImpl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.teentime.mainApi.domain.Member;
-import kr.teentime.mainApi.domain.QMember;
+import kr.teentime.mainApi.dto.MemberLoginDto;
+import kr.teentime.mainApi.dto.QMemberLoginDto;
 import kr.teentime.mainApi.repository.custom.MemberRepositoryCustom;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.util.Optional;
 
 import static kr.teentime.mainApi.domain.QMember.*;
@@ -18,14 +16,14 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public Optional<Member> findMemberForLogin(String loginId) {
+    public Optional<MemberLoginDto> findMemberForLogin(String loginId) {
 
-        Member member = query.select(QMember.member)
-                .from(QMember.member)
-                .where(QMember.member.authEmail.eq(loginId).or(
-                        QMember.member.phoneNumber.eq(loginId)
+        MemberLoginDto memberDto = query.select(new QMemberLoginDto(member.password, member.phoneNumber))
+                .from(member)
+                .where(member.authEmail.eq(loginId).or(
+                        member.phoneNumber.eq(loginId)
                 )).fetchOne();
 
-        return Optional.ofNullable(member);
+        return Optional.ofNullable(memberDto);
     }
 }
