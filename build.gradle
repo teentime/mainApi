@@ -62,9 +62,13 @@ configurations {
 	querydsl.extendsFrom compileClasspath
 }
 
+clean.doLast {
+	file(querydslDir).deleteDir()
+}
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
