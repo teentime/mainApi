@@ -25,4 +25,6 @@ public class Post extends BasicEntity {
                 fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    private boolean isAnon;
 }

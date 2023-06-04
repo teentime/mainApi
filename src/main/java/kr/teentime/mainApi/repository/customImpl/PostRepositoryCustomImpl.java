@@ -1,17 +1,46 @@
 package kr.teentime.mainApi.repository.customImpl;
 
-import kr.teentime.mainApi.domain.Post;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
+import kr.teentime.mainApi.dto.dslDto.QPostPagingDto;
 import kr.teentime.mainApi.repository.custom.PostRepositoryCustom;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
 
+import static kr.teentime.mainApi.domain.QPost.*;
+
+@RequiredArgsConstructor
 public class PostRepositoryCustomImpl implements PostRepositoryCustom {
+
+    private final JPAQueryFactory query;
+
     @Override
-    public Optional<List<Post>> pagingPost(Pageable page, String keyword) {
+    public Page pagingPost(Pageable page, String keyword, String tags) {
+        List<PostPagingDto> postList = query.select(
+                        new QPostPagingDto(
+                                post.title, post.content, post.view, post.createdDate,
+                                new CaseBuilder()
+                                        .when(post.isAnon)
+                                        .then("익명")
+                                        .otherwise(post.member.nickName)
+                        ))
+                .from(post)
+                .where(post.content.contains(keyword))
+                .orderBy(post.id.desc())
+                .offset(page.getOffset())
+                .limit(page.getPageSize())
+                .fetch();
 
+        JPAQuery<Long> totalCount = query.select(post.count())
+                .from(post)
+                .where(post.content.contains(keyword));
 
-        return Optional.empty();
+        return PageableExecutionUtils.getPage(postList, page, totalCount::fetchOne);
     }
 }
