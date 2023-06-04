@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class BasicEntity {
+public class BasicEntity extends BasicTime {
 
     @CreatedBy
     private Long createdBy;
