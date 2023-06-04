@@ -6,6 +6,7 @@ import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +40,7 @@ class PostServiceTest {
     EntityManager em;
 
     @Test
+    @DisplayName("포스트 작성")
     void createPost() {
         // given
         String title = "test";
@@ -55,6 +57,7 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("포스트 가져오기 - 기본")
     void pagingPost() {
         // given
         String title = "test";
@@ -70,4 +73,28 @@ class PostServiceTest {
         // then
         assertNotNull(posts);
     }
+
+    @Test
+    @DisplayName("포스트 가져오기 - 기본")
+    void searchPost() {
+        // given
+        String title = "test";
+        String content = "content";
+        postService.writePost(title, content);
+
+        String title2 = "test";
+        String content2 = "hello world";
+        postService.writePost(title2, content2);
+
+        Pageable page = PageRequest.of(0, 20);
+
+        // when
+
+        Page posts = postService.pagingPost(page, "lo", null);
+
+        // then
+        assertNotNull(posts.getTotalElements() == 1);
+    }
+
+
 }
