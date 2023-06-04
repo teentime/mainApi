@@ -2,7 +2,7 @@ package kr.teentime.mainApi.repository.customImpl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.teentime.mainApi.dto.dslDto.MemberLoginDto;
-import kr.teentime.mainApi.dto.QMemberLoginDto;
+import kr.teentime.mainApi.dto.dslDto.QMemberLoginDto;
 import kr.teentime.mainApi.repository.custom.MemberRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 
