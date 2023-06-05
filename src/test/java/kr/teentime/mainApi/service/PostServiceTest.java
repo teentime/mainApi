@@ -9,6 +9,7 @@ import kr.teentime.mainApi.testConfig.WithMockCustomUser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-@Transactional
-@Rollback
+@Transactional()
 @ActiveProfiles("test")
+@Rollback
 @WithMockCustomUser
 class PostServiceTest {
 
@@ -45,9 +47,10 @@ class PostServiceTest {
         // given
         String title = "test";
         String content = "content";
+        List<String> tags = List.of("#test");
 
         // when
-        postService.writePost(title, content);
+        postService.writePost(title, content, tags);
         
         em.flush();
         em.clear();
@@ -62,7 +65,8 @@ class PostServiceTest {
         // given
         String title = "test";
         String content = "content";
-        postService.writePost(title, content);
+        List<String> tags = List.of("#test");
+        postService.writePost(title, content, tags);
 
         Pageable page = PageRequest.of(0, 20);
 
@@ -75,16 +79,24 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("포스트 가져오기 - 기본")
+    @DisplayName("포스트 가져오기 - 태그 검색")
+    void searchTagPost() {
+        // given
+
+
+    }
+
+    @Test
+    @DisplayName("포스트 가져오기 - 검색")
     void searchPost() {
         // given
         String title = "test";
         String content = "content";
-        postService.writePost(title, content);
+        postService.writePost(title, content, List.of());
 
         String title2 = "test";
         String content2 = "hello world";
-        postService.writePost(title2, content2);
+        postService.writePost(title2, content2, List.of());
 
         Pageable page = PageRequest.of(0, 20);
 

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.basic.BasicEntity;
 import lombok.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Builder
 @Entity @Getter
 @AllArgsConstructor
@@ -19,6 +22,7 @@ public class Post extends BasicEntity {
 
     @Column(nullable = false)
     private String content;
+    private String tags;
     private Long view = 0L;
 
     @ManyToOne(cascade = CascadeType.ALL,
@@ -27,4 +31,8 @@ public class Post extends BasicEntity {
     private Member member;
 
     private boolean isAnon;
+
+    public List<String> getTags() {
+        return Arrays.stream(tags.split(",")).toList();
+    }
 }

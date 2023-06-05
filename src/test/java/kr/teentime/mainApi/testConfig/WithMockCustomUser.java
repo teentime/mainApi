@@ -11,5 +11,5 @@ public @interface WithMockCustomUser {
 
     String role() default "";
 
-    String loginId() default "testUser";
+    String loginId() default "01000000001";
 }

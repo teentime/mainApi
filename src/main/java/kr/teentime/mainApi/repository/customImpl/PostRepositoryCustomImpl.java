@@ -21,8 +21,8 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public Page pagingPost(Pageable page, String keyword, String tags) {
-        List<PostPagingDto> postList = query.select(
+    public Page pagingPost(Pageable page, String keyword, List<String> tags) {
+        JPAQuery<PostPagingDto> statement = query.select(
                         new QPostPagingDto(
                                 post.title, post.content, post.view, post.createdDate,
                                 new CaseBuilder()
@@ -31,7 +31,15 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                                         .otherwise(post.member.nickName)
                         ))
                 .from(post)
-                .where(post.content.contains(keyword))
+                .where(post.content.contains(keyword));
+
+        if (tags != null) {
+            for (String tag: tags) {
+                statement = statement.where(post.tags.contains(tag));
+            }
+        }
+
+        List<PostPagingDto> postList = statement
                 .orderBy(post.id.desc())
                 .offset(page.getOffset())
                 .limit(page.getPageSize())

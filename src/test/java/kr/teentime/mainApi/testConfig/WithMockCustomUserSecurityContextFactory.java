@@ -28,9 +28,11 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
         Member joinDto = Member.builder()
                 .authEmail("23y00000@pcs.hs.kr")
                 .password("testPassword")
-                .phoneNumber("01000000000")
+                .phoneNumber(annotation.loginId())
                 .nickName("테스트")
                 .build();
+
+        List<Member> all = memberRepository.findAll();
 
         //when
         Member member = memberRepository.save(joinDto);
