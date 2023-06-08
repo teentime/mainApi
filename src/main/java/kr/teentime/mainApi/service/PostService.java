@@ -2,6 +2,9 @@ package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
+import kr.teentime.mainApi.dto.PostUpdateDto;
+import kr.teentime.mainApi.dto.PostWriteDto;
+import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.util.Util;
@@ -13,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,17 +26,17 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
-    public void writePost(String title, String content, List<String> tags) {
+    public void writePost(PostWriteDto postWriteDto) {
         Member loginMember = Util.getLoginMember();
         Member member = memberRepository.findById(loginMember.getId()).get();
 
         // tags #a #b #c -> #a,#b,#c
-        String tagString = tags.toString().trim();
+        String tagString = postWriteDto.getTags().toString().trim();
 
         Post post = Post.builder()
                 .member(member)
-                .title(title)
-                .content(content)
+                .title(postWriteDto.getTitle())
+                .content(postWriteDto.getContent())
                 .tags(tagString)
                 .build();
 
