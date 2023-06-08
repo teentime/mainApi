@@ -19,11 +19,6 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/oijwd")
-    public ResponseEntity test() {
-        return Result.ok("wasd");
-    }
-
     @GetMapping("/posts")
     public ResponseEntity post(@PageableDefault(page = 0, size = 20) Pageable pageable,
                                @RequestParam(required = false) String keyword,
