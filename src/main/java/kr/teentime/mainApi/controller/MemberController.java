@@ -6,6 +6,7 @@ import kr.teentime.mainApi.dto.LoginDto;
 import kr.teentime.mainApi.service.MemberService;
 import kr.teentime.mainApi.util.Result;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,9 @@ public class MemberController {
             memberService.join(joinDto);
 
             return Result.ok(null);
+
+        } catch (DataIntegrityViolationException e) {
+            return Result.error("id or password is already exist", HttpStatus.CONFLICT.value());
         } catch (Exception e) {
             e.printStackTrace();
             return Result.internalError();
