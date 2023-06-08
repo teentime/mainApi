@@ -7,7 +7,9 @@ import kr.teentime.mainApi.service.MemberService;
 import kr.teentime.mainApi.util.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +34,10 @@ public class MemberController {
             return ResponseEntity.ok()
                     .headers(header)
                     .body(null);
+
+        } catch (UsernameNotFoundException e) {
+            return Result.error("id or password is not exist",
+                    HttpStatus.NOT_FOUND.value());
         } catch (Exception e) {
             e.printStackTrace();
             return Result.internalError();
