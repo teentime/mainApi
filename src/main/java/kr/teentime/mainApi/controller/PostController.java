@@ -49,5 +49,17 @@ public class PostController {
         }
     }
 
+    @PatchMapping("/post/update")
+    public ResponseEntity update(@RequestBody PostUpdateDto updateDto) {
+        try {
+            postService.updatePost(updateDto);
 
+            return Result.ok(null);
+        } catch (PostNotFoundException e) {
+            return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.internalError();
+        }
+    }
 }

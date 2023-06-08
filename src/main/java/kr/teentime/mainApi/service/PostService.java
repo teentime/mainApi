@@ -48,4 +48,13 @@ public class PostService {
 
         return pagingPost;
     }
+
+    public void updatePost(PostUpdateDto postUpdateDto) throws PostNotFoundException {
+        Optional<Post> post = postRepository.findById(postUpdateDto.getPostId());
+        if (post.isEmpty()) throw new PostNotFoundException();
+
+        post.get().setTags(postUpdateDto.getTags());
+        post.get().setContent(postUpdateDto.getContent());
+        post.get().setTitle(postUpdateDto.getTitle());
+    }
 }
