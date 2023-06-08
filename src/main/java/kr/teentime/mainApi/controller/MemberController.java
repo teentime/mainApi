@@ -33,7 +33,7 @@ public class MemberController {
 
             return ResponseEntity.ok()
                     .headers(header)
-                    .body(null);
+                    .body(new Result<>(null, false));
 
         } catch (UsernameNotFoundException e) {
             return Result.error("id or password is not exist",
