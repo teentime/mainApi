@@ -31,7 +31,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                                         .otherwise(post.member.nickName)
                         ))
                 .from(post)
-                .where(post.content.contains(keyword));
+                .where(post.content.containsIgnoreCase(keyword));
 
         if (tags != null) {
             for (String tag: tags) {
