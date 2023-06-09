@@ -29,8 +29,8 @@ public class MemberController {
             Map<String, String> token = memberService.login(loginDto);
 
             HttpHeaders header = new HttpHeaders();
-            header.add("X-Auth-Token", token.get("accessToken"));
-            header.add("X-Refresh-Token", token.get("refreshToken"));
+            header.add("X-Auth-Token", "Bearer " + token.get("accessToken"));
+            header.add("X-Refresh-Token", "Bearer " + token.get("refreshToken"));
 
             return ResponseEntity.ok()
                     .headers(header)
