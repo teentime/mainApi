@@ -24,7 +24,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity post(@PageableDefault(page = 0, size = 20) Pageable pageable,
-                               @RequestParam(required = false) String keyword,
+                               @RequestParam(defaultValue = "", required = false) String keyword,
                                @RequestParam(defaultValue = "", required = false) List<String> tags) {
 
         try {
