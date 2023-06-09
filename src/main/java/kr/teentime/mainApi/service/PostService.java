@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -57,5 +58,18 @@ public class PostService {
         post.get().setTags(postUpdateDto.getTags());
         post.get().setContent(postUpdateDto.getContent());
         post.get().setTitle(postUpdateDto.getTitle());
+    }
+
+    public void deletePost(Long postId) throws PostNotFoundException {
+
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isEmpty()) throw new PostNotFoundException();
+        Member member = Util.getLoginMember();
+
+        if (!Objects.equals(post.get().getMember().getId(), member.getId())) {
+            throw new IllegalAccessError("not a post's owner");
+        }
+
+        postRepository.delete(post.get());
     }
 }

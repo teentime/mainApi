@@ -62,4 +62,17 @@ public class PostController {
             return Result.internalError();
         }
     }
+
+    @DeleteMapping("/post/delete/{postId}")
+    public ResponseEntity deletePost(@PathVariable("postId") Long postId) {
+        try {
+            postService.deletePost(postId);
+            return Result.ok("success");
+        } catch (PostNotFoundException e) {
+            return Result.error("not a user's post",
+                    HttpStatus.FORBIDDEN.value());
+        } catch (Exception e) {
+            return Result.internalError();
+        }
+    }
 }
