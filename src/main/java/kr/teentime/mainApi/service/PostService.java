@@ -37,6 +37,7 @@ public class PostService {
                 .member(member)
                 .title(postWriteDto.getTitle())
                 .content(postWriteDto.getContent())
+                .isAnon(postWriteDto.isAnon())
                 .tags(tagString)
                 .build();
 

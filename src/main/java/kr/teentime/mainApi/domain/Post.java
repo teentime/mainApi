@@ -23,7 +23,7 @@ public class Post extends BasicEntity {
     @Column(nullable = false)
     private String content;
     private String tags;
-    private Long view = 0L;
+    private Long view;
 
     @ManyToOne(cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY)
@@ -50,5 +50,11 @@ public class Post extends BasicEntity {
 
     public void addView() {
         this.view++;
+    }
+
+    @PrePersist
+    public void persist() {
+        this.isAnon = true;
+        this.view = 0L;
     }
 }
