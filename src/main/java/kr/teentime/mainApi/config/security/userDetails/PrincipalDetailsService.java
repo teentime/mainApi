@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
