@@ -24,11 +24,10 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity post(@PageableDefault(page = 0, size = 20) Pageable pageable,
-                               @RequestParam(defaultValue = "", required = false) String keyword,
-                               @RequestParam(defaultValue = "", required = false) List<String> tags) {
+                               @RequestParam(defaultValue = "", required = false) String keyword) {
 
         try {
-            Page page = postService.pagingPost(pageable, keyword, tags);
+            Page page = postService.pagingPost(pageable, keyword);
 
             return ResponseEntity.ok(page);
         } catch (Exception e) {
