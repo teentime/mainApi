@@ -16,7 +16,5 @@ public class PostWriteDto {
     @NotEmpty
     private String content;
 
-    private List<String> tags;
-
     private boolean isAnon;
 }

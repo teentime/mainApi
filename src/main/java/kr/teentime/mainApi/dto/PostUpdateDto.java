@@ -20,8 +20,6 @@ public class PostUpdateDto {
     @NotEmpty
     private String content;
 
-    private List<String> tags;
-
     public @NotNull Long getPostId() {
         return postId;
     }

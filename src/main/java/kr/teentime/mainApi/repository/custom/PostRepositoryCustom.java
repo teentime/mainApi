@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepositoryCustom {
-    Page pagingPost(Pageable page, String keyword, List<String> tags);
+    Page pagingPost(Pageable page, String keyword);
 }

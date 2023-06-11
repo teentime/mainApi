@@ -3,9 +3,11 @@ package kr.teentime.mainApi.service;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import kr.teentime.mainApi.domain.Post;
+import kr.teentime.mainApi.dto.PostWriteDto;
 import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +49,25 @@ class PostServiceTest {
         // given
         String title = "test";
         String content = "content";
-        List<String> tags = List.of("#test");
+
+        PostWriteDto post = PostWriteDto.builder()
+                .title(title)
+                .content(content)
+                .isAnon(true)
+                .build();
 
         // when
-        postService.writePost(title, content, tags);
+        postService.writePost(post);
         
         em.flush();
         em.clear();
 
+        List<Post> posts = postRepository.findAll();
+
         // then
-        assertNotNull(postRepository.findAll());
+        assertNotNull(posts);
+        Assertions.assertThat(posts.get(0).getContent())
+                .isEqualTo(content);
     }
 
     @Test
@@ -65,25 +76,21 @@ class PostServiceTest {
         // given
         String title = "test";
         String content = "content";
-        List<String> tags = List.of("#test");
-        postService.writePost(title, content, tags);
+
+        PostWriteDto post = PostWriteDto.builder()
+                .title(title)
+                .content(content)
+                .isAnon(true)
+                .build();
 
         Pageable page = PageRequest.of(0, 20);
 
         // when
 
-        Page posts = postService.pagingPost(page, "", null);
+        Page posts = postService.pagingPost(page, "");
 
         // then
         assertNotNull(posts);
-    }
-
-    @Test
-    @DisplayName("포스트 가져오기 - 태그 검색")
-    void searchTagPost() {
-        // given
-
-
     }
 
     @Test
@@ -92,17 +99,31 @@ class PostServiceTest {
         // given
         String title = "test";
         String content = "content";
-        postService.writePost(title, content, List.of());
 
-        String title2 = "test";
-        String content2 = "hello world";
-        postService.writePost(title2, content2, List.of());
+        PostWriteDto post = PostWriteDto.builder()
+                .title(title)
+                .content(content)
+                .isAnon(true)
+                .build();
+
+        postService.writePost(post);
+
+        String title2 = "second test";
+        String content2 = "second content";
+
+        PostWriteDto post2 = PostWriteDto.builder()
+                .title(title2)
+                .content(content2)
+                .isAnon(true)
+                .build();
+
+        postService.writePost(post2);
 
         Pageable page = PageRequest.of(0, 20);
 
         // when
 
-        Page posts = postService.pagingPost(page, "lo", null);
+        Page posts = postService.pagingPost(page, "second");
 
         // then
         assertNotNull(posts.getTotalElements() == 1);

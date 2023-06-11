@@ -22,7 +22,6 @@ public class Post extends BasicEntity {
 
     @Column(nullable = false)
     private String content;
-    private String tags;
     private Long view;
 
     @ManyToOne(cascade = CascadeType.ALL,
@@ -32,20 +31,12 @@ public class Post extends BasicEntity {
 
     private boolean isAnon;
 
-    public List<String> getTags() {
-        return Arrays.stream(tags.split(",")).toList();
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags.toString().trim();
     }
 
     public void addView() {

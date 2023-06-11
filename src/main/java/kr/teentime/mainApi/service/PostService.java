@@ -31,22 +31,18 @@ public class PostService {
         Member loginMember = Util.getLoginMember();
         Member member = memberRepository.findById(loginMember.getId()).get();
 
-        // tags #a #b #c -> #a,#b,#c
-        String tagString = postWriteDto.getTags().toString().trim();
-
         Post post = Post.builder()
                 .member(member)
                 .title(postWriteDto.getTitle())
                 .content(postWriteDto.getContent())
                 .isAnon(postWriteDto.isAnon())
-                .tags(tagString)
                 .build();
 
         postRepository.save(post);
     }
 
-    public Page pagingPost(Pageable page, String keyword, List<String> tag) {
-        Page pagingPost = postRepository.pagingPost(page, keyword, tag);
+    public Page pagingPost(Pageable page, String keyword) {
+        Page pagingPost = postRepository.pagingPost(page, keyword);
 
         return pagingPost;
     }
@@ -55,7 +51,6 @@ public class PostService {
         Optional<Post> post = postRepository.findById(postUpdateDto.getPostId());
         if (post.isEmpty()) throw new PostNotFoundException();
 
-        post.get().setTags(postUpdateDto.getTags());
         post.get().setContent(postUpdateDto.getContent());
         post.get().setTitle(postUpdateDto.getTitle());
     }
