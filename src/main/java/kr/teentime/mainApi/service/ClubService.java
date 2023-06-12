@@ -1,6 +1,7 @@
 package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.domain.Club;
+import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import kr.teentime.mainApi.dto.AddClubDto;
 import kr.teentime.mainApi.repository.ClubRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class ClubService {
 
         Club club = Club.builder()
                 .name(addClubDto.getClubName())
-                .type(addClubDto.getClubType())
+                .type(ENUMS_clubType.valueOf(addClubDto.getClubType()))
                 .build();
 
         clubRepository.save(club);

@@ -1,6 +1,7 @@
 package kr.teentime.mainApi.controller;
 
 import jakarta.validation.Valid;
+import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import kr.teentime.mainApi.dto.AddClubDto;
 import kr.teentime.mainApi.service.ClubService;
 import kr.teentime.mainApi.util.Result;

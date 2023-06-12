@@ -14,5 +14,5 @@ public class AddClubDto {
     private String clubName;
 
     @NotEmpty
-    private ENUMS_clubType clubType;
+    private String clubType;
 }
