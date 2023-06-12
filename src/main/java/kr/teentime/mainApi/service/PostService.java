@@ -1,10 +1,13 @@
 package kr.teentime.mainApi.service;
 
+import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.PostUpdateDto;
 import kr.teentime.mainApi.dto.PostWriteDto;
+import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
+import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.util.Util;
@@ -26,13 +29,18 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final ClubRepository clubRepository;
 
-    public void writePost(PostWriteDto postWriteDto) {
+    public void writePost(PostWriteDto postWriteDto) throws NotFoundClubException {
         Member loginMember = Util.getLoginMember();
         Member member = memberRepository.findById(loginMember.getId()).get();
+        Optional<Club> club = clubRepository.findByName(postWriteDto.getClubName());
+
+        if (club.isEmpty()) throw new NotFoundClubException();
 
         Post post = Post.builder()
                 .member(member)
+                .club(club.get())
                 .title(postWriteDto.getTitle())
                 .content(postWriteDto.getContent())
                 .isAnon(postWriteDto.isAnon())
@@ -41,8 +49,8 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Page pagingPost(Pageable page, String keyword) {
-        Page pagingPost = postRepository.pagingPost(page, keyword);
+    public Page pagingPost(Pageable page, String keyword, String clubName) {
+        Page pagingPost = postRepository.pagingPost(page, keyword, clubName);
 
         return pagingPost;
     }

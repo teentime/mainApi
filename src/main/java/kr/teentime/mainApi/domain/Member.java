@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.basic.BasicTime;
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Entity @Getter
 @AllArgsConstructor
@@ -35,4 +37,8 @@ public class Member extends BasicTime {
             unique = true,
             length = 11)
     private String phoneNumber;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "member")
+    private List<ClubMember> club;
 }

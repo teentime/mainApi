@@ -2,7 +2,10 @@ package kr.teentime.mainApi.domain;
 
 import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.basic.BasicEntity;
+import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @Entity
@@ -16,6 +19,20 @@ public class Club extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false,
+            unique = true,
+            updatable = false)
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "club")
+    private List<ClubMember> members;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "club")
+    private List<Post> posts;
+
+    @Enumerated(EnumType.STRING)
+    private ENUMS_clubType type;
 }

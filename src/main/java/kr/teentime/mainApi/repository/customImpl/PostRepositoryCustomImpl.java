@@ -3,6 +3,7 @@ package kr.teentime.mainApi.repository.customImpl;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import kr.teentime.mainApi.domain.QClub;
 import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
 import kr.teentime.mainApi.dto.dslDto.QPostPagingDto;
 import kr.teentime.mainApi.repository.custom.PostRepositoryCustom;
@@ -13,6 +14,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
+import static kr.teentime.mainApi.domain.QClub.club;
 import static kr.teentime.mainApi.domain.QPost.*;
 
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public Page pagingPost(Pageable page, String keyword) {
+    public Page pagingPost(Pageable page, String keyword, String clubName) {
         JPAQuery<PostPagingDto> statement = query.select(
                         new QPostPagingDto(
                                 post.title, post.content, post.view, post.createdDate,
@@ -31,7 +33,9 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                                         .otherwise(post.member.nickName)
                         ))
                 .from(post)
-                .where(post.content.containsIgnoreCase(keyword));
+                .leftJoin(post.club, club)
+                .where(post.content.containsIgnoreCase(keyword)
+                        .and(club.name.eq(clubName)));
 
         List<PostPagingDto> postList = statement
                 .orderBy(post.id.desc())

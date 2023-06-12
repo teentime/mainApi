@@ -3,6 +3,7 @@ package kr.teentime.mainApi.controller;
 import jakarta.websocket.server.PathParam;
 import kr.teentime.mainApi.dto.PostUpdateDto;
 import kr.teentime.mainApi.dto.PostWriteDto;
+import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.service.PostService;
 import kr.teentime.mainApi.util.Result;
@@ -22,12 +23,13 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/{clubName}")
     public ResponseEntity post(@PageableDefault(page = 0, size = 20) Pageable pageable,
-                               @RequestParam(defaultValue = "", required = false) String keyword) {
+                               @RequestParam(defaultValue = "", required = false) String keyword,
+                               @PathVariable("clubName") String clubName) {
 
         try {
-            Page page = postService.pagingPost(pageable, keyword);
+            Page page = postService.pagingPost(pageable, keyword, clubName);
 
             return ResponseEntity.ok(page);
         } catch (Exception e) {
@@ -42,6 +44,8 @@ public class PostController {
             postService.writePost(postWriteDto);
 
             return Result.ok(null);
+        } catch (NotFoundClubException e) {
+            return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
         } catch (Exception e) {
             e.printStackTrace();
             return Result.internalError();

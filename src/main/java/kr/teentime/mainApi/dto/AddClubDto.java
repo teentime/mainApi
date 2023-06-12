@@ -1,23 +1,18 @@
 package kr.teentime.mainApi.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
 
-import java.util.List;
-
-
-@Data @Builder
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostWriteDto {
-
-    @NotEmpty
-    private String title;
-    @NotEmpty
-    private String content;
-
-    private boolean isAnon;
+public class AddClubDto {
 
     @NotEmpty
     private String clubName;
+
+    @NotEmpty
+    private ENUMS_clubType clubType;
 }

@@ -29,6 +29,10 @@ public class Post extends BasicEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id")
+    private Club club;
+
     private boolean isAnon;
 
     public void setTitle(String title) {

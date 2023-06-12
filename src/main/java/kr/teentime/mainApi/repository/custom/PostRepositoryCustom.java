@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepositoryCustom {
-    Page pagingPost(Pageable page, String keyword);
+    Page pagingPost(Pageable page, String keyword, String clubName);
 }
