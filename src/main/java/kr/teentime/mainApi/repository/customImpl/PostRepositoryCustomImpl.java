@@ -33,7 +33,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                                         .otherwise(post.member.nickName)
                         ))
                 .from(post)
-                .leftJoin(post.club, club)
+                .join(post.club, club)
                 .where(post.content.containsIgnoreCase(keyword)
                         .and(club.name.eq(clubName)));
 
