@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtAuthenticationFilter(jwtConfig),
                         UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/post/**")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/post/**", "/club/**")
                         .authenticated()
                         .anyRequest()
                         .permitAll())
