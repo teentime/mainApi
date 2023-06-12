@@ -15,4 +15,11 @@ public class GlobalExceptionHandler {
 
         return Result.error("bad data request", 400);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity handleException(Exception ex) {
+
+        ex.printStackTrace();
+        return Result.internalError();
+    }
 }
