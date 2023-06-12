@@ -2,11 +2,14 @@ package kr.teentime.mainApi.service;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
+import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.PostWriteDto;
 import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
+import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
+import kr.teentime.mainApi.util.Util;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,7 +48,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("포스트 작성")
-    void createPost() {
+    void createPost() throws NotFoundClubException {
         // given
         String title = "test";
         String content = "content";
@@ -53,6 +56,7 @@ class PostServiceTest {
         PostWriteDto post = PostWriteDto.builder()
                 .title(title)
                 .content(content)
+                .clubName("test")
                 .isAnon(true)
                 .build();
 
@@ -77,25 +81,27 @@ class PostServiceTest {
         String title = "test";
         String content = "content";
 
-        PostWriteDto post = PostWriteDto.builder()
+        Post post = Post.builder()
                 .title(title)
                 .content(content)
                 .isAnon(true)
                 .build();
 
+        postRepository.save(post);
+
         Pageable page = PageRequest.of(0, 20);
 
         // when
 
-        Page posts = postService.pagingPost(page, "");
+        Page posts = postService.pagingPost(page, "", "test");
 
         // then
-        assertNotNull(posts);
+        assertNotNull(posts.getContent());
     }
 
     @Test
     @DisplayName("포스트 가져오기 - 검색")
-    void searchPost() {
+    void searchPost() throws NotFoundClubException {
         // given
         String title = "test";
         String content = "content";
@@ -103,6 +109,7 @@ class PostServiceTest {
         PostWriteDto post = PostWriteDto.builder()
                 .title(title)
                 .content(content)
+                .clubName("test")
                 .isAnon(true)
                 .build();
 
@@ -114,6 +121,7 @@ class PostServiceTest {
         PostWriteDto post2 = PostWriteDto.builder()
                 .title(title2)
                 .content(content2)
+                .clubName("test")
                 .isAnon(true)
                 .build();
 
@@ -123,7 +131,7 @@ class PostServiceTest {
 
         // when
 
-        Page posts = postService.pagingPost(page, "second");
+        Page posts = postService.pagingPost(page, "second", "test");
 
         // then
         assertNotNull(posts.getTotalElements() == 1);
