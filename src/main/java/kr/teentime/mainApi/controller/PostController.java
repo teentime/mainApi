@@ -28,14 +28,9 @@ public class PostController {
                                @RequestParam(defaultValue = "", required = false) String keyword,
                                @PathVariable("clubName") String clubName) {
 
-        try {
-            Page page = postService.pagingPost(pageable, keyword, clubName);
+        Page page = postService.pagingPost(pageable, keyword, clubName);
 
-            return ResponseEntity.ok(page);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.internalError();
-        }
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/post/write")
@@ -46,9 +41,6 @@ public class PostController {
             return Result.ok(null);
         } catch (NotFoundClubException e) {
             return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.internalError();
         }
     }
 
@@ -60,9 +52,6 @@ public class PostController {
             return Result.ok(null);
         } catch (PostNotFoundException e) {
             return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.internalError();
         }
     }
 
@@ -73,9 +62,10 @@ public class PostController {
             return Result.ok("success");
         } catch (PostNotFoundException e) {
             return Result.error("not a user's post",
+                    HttpStatus.NOT_FOUND.value());
+        } catch (IllegalAccessError e) {
+            return Result.error(e.getMessage(),
                     HttpStatus.FORBIDDEN.value());
-        } catch (Exception e) {
-            return Result.internalError();
         }
     }
 }

@@ -39,9 +39,6 @@ public class MemberController {
         } catch (UsernameNotFoundException e) {
             return Result.error("id or password is not exist",
                     HttpStatus.NOT_FOUND.value());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.internalError();
         }
     }
 
@@ -55,9 +52,6 @@ public class MemberController {
 
         } catch (DataIntegrityViolationException e) {
             return Result.error("id or password is already exist", HttpStatus.CONFLICT.value());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.internalError();
         }
     }
 }
