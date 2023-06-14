@@ -41,4 +41,9 @@ public class Member extends BasicTime {
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "member")
     private List<ClubMember> club;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "member")
+    private List<AdminMember> admin;
 }

@@ -33,6 +33,15 @@ public class Club extends BasicEntity {
             mappedBy = "club")
     private List<Post> posts;
 
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "club")
+    private List<Admin> adminList;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "club")
+    private List<AdminMember> admin;
+
     @Enumerated(EnumType.STRING)
     private ENUMS_clubType type;
 }
