@@ -40,7 +40,7 @@ public class Club extends BasicEntity {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "club")
-    private List<AdminMember> admin;
+    private List<Admin> admin;
 
     @Enumerated(EnumType.STRING)
     private ENUMS_clubType type;
