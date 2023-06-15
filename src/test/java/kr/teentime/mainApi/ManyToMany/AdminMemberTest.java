@@ -8,8 +8,10 @@ import kr.teentime.mainApi.repository.AdminMemberRepository;
 import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
+import kr.teentime.mainApi.testConfig.WithMockCustomUser;
 import kr.teentime.mainApi.util.Util;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @SpringBootTest
 @Transactional
 @Rollback
+@WithMockCustomUser
 @ActiveProfiles("test")
 public class AdminMemberTest {
 
@@ -36,11 +39,12 @@ public class AdminMemberTest {
     @Autowired
     ClubRepository clubRepository;
 
+    @Test
     void testAdminMember() {
         //given
         Member member = Util.getLoginMember();
 
-        Optional<Club> club = clubRepository.findByName(member.getClub().get(0).getClub().getName());
+        Optional<Club> club = clubRepository.findByName("test");
 
         Admin admin = Admin.builder()
                 .member(member)
