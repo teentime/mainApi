@@ -1,6 +1,8 @@
-package kr.teentime.mainApi.domain;
+package kr.teentime.mainApi.domain.ManyToMany;
 
 import jakarta.persistence.*;
+import kr.teentime.mainApi.domain.Club;
+import kr.teentime.mainApi.domain.Member;
 import lombok.*;
 
 @Builder

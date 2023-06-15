@@ -1,8 +1,8 @@
 package kr.teentime.mainApi.ManyToMany;
 
 import kr.teentime.mainApi.domain.Admin;
-import kr.teentime.mainApi.domain.AdminMember;
 import kr.teentime.mainApi.domain.Club;
+import kr.teentime.mainApi.domain.ManyToMany.AdminMember;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.repository.AdminMemberRepository;
 import kr.teentime.mainApi.repository.AdminRepository;

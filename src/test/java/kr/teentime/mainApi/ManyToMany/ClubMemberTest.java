@@ -2,7 +2,7 @@ package kr.teentime.mainApi.ManyToMany;
 
 import jakarta.persistence.EntityManager;
 import kr.teentime.mainApi.domain.Club;
-import kr.teentime.mainApi.domain.ClubMember;
+import kr.teentime.mainApi.domain.ManyToMany.ClubMember;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.repository.ClubMemberRepository;
 import kr.teentime.mainApi.repository.ClubRepository;

@@ -1,6 +1,7 @@
 package kr.teentime.mainApi.domain;
 
 import jakarta.persistence.*;
+import kr.teentime.mainApi.domain.ManyToMany.ClubMember;
 import kr.teentime.mainApi.domain.basic.BasicEntity;
 import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
