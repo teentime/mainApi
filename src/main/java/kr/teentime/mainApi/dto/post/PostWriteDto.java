@@ -1,9 +1,7 @@
-package kr.teentime.mainApi.dto;
+package kr.teentime.mainApi.dto.post;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-
-import java.util.List;
 
 
 @Data @Builder

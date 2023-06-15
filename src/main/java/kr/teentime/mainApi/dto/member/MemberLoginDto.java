@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.dto.dslDto;
+package kr.teentime.mainApi.dto.member;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;

@@ -1,7 +1,9 @@
-package kr.teentime.mainApi.dto.dslDto;
+package kr.teentime.mainApi.dto.post;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

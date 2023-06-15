@@ -3,8 +3,8 @@ package kr.teentime.mainApi.service;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
-import kr.teentime.mainApi.dto.PostUpdateDto;
-import kr.teentime.mainApi.dto.PostWriteDto;
+import kr.teentime.mainApi.dto.post.PostUpdateDto;
+import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.repository.ClubRepository;
@@ -17,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.MessageFormat;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 

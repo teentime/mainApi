@@ -1,7 +1,6 @@
-package kr.teentime.mainApi.dto;
+package kr.teentime.mainApi.dto.club;
 
 import jakarta.validation.constraints.NotEmpty;
-import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
 
 @Data

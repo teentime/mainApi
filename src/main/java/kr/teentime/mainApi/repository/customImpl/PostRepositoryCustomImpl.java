@@ -3,9 +3,8 @@ package kr.teentime.mainApi.repository.customImpl;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.teentime.mainApi.domain.QClub;
-import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
 import kr.teentime.mainApi.dto.dslDto.QPostPagingDto;
+import kr.teentime.mainApi.dto.post.PostPagingDto;
 import kr.teentime.mainApi.repository.custom.PostRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import java.util.List;
 
 import static kr.teentime.mainApi.domain.QClub.club;
-import static kr.teentime.mainApi.domain.QPost.*;
+import static kr.teentime.mainApi.domain.QPost.post;
 
 @RequiredArgsConstructor
 public class PostRepositoryCustomImpl implements PostRepositoryCustom {

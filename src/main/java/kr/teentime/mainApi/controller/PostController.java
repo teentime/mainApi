@@ -1,8 +1,7 @@
 package kr.teentime.mainApi.controller;
 
-import jakarta.websocket.server.PathParam;
-import kr.teentime.mainApi.dto.PostUpdateDto;
-import kr.teentime.mainApi.dto.PostWriteDto;
+import kr.teentime.mainApi.dto.post.PostUpdateDto;
+import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.service.PostService;
@@ -14,8 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

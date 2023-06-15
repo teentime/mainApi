@@ -1,33 +1,26 @@
 package kr.teentime.mainApi.service;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
-import kr.teentime.mainApi.dto.PostWriteDto;
-import kr.teentime.mainApi.dto.dslDto.PostPagingDto;
+import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
-import kr.teentime.mainApi.util.Util;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest

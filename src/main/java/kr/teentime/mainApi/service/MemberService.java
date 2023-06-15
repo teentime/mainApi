@@ -2,9 +2,9 @@ package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.config.security.jwt.JwtConfig;
 import kr.teentime.mainApi.domain.Member;
-import kr.teentime.mainApi.dto.JoinDto;
-import kr.teentime.mainApi.dto.LoginDto;
-import kr.teentime.mainApi.dto.dslDto.MemberLoginDto;
+import kr.teentime.mainApi.dto.member.JoinDto;
+import kr.teentime.mainApi.dto.member.LoginDto;
+import kr.teentime.mainApi.dto.member.MemberLoginDto;
 import kr.teentime.mainApi.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional

@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.dto;
+package kr.teentime.mainApi.dto.member;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

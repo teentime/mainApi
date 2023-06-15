@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.dto;
+package kr.teentime.mainApi.dto.member;
 
 import lombok.*;
 

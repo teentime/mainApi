@@ -1,8 +1,8 @@
 package kr.teentime.mainApi.controller;
 
 import jakarta.validation.Valid;
-import kr.teentime.mainApi.dto.JoinDto;
-import kr.teentime.mainApi.dto.LoginDto;
+import kr.teentime.mainApi.dto.member.JoinDto;
+import kr.teentime.mainApi.dto.member.LoginDto;
 import kr.teentime.mainApi.service.MemberService;
 import kr.teentime.mainApi.util.Result;
 import lombok.RequiredArgsConstructor;

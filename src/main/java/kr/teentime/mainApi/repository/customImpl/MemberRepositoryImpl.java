@@ -1,14 +1,14 @@
 package kr.teentime.mainApi.repository.customImpl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.teentime.mainApi.dto.dslDto.MemberLoginDto;
 import kr.teentime.mainApi.dto.dslDto.QMemberLoginDto;
+import kr.teentime.mainApi.dto.member.MemberLoginDto;
 import kr.teentime.mainApi.repository.custom.MemberRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import static kr.teentime.mainApi.domain.QMember.*;
+import static kr.teentime.mainApi.domain.QMember.member;
 
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom {

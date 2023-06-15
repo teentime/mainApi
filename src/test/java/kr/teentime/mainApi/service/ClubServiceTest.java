@@ -2,7 +2,7 @@ package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.domain.Admin;
 import kr.teentime.mainApi.domain.Club;
-import kr.teentime.mainApi.dto.AddClubDto;
+import kr.teentime.mainApi.dto.club.AddClubDto;
 import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Transactional

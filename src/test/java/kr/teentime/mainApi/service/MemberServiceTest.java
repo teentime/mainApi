@@ -1,7 +1,7 @@
 package kr.teentime.mainApi.service;
 
-import kr.teentime.mainApi.dto.JoinDto;
-import kr.teentime.mainApi.dto.LoginDto;
+import kr.teentime.mainApi.dto.member.JoinDto;
+import kr.teentime.mainApi.dto.member.LoginDto;
 import kr.teentime.mainApi.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Transactional
