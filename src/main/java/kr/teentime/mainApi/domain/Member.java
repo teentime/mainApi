@@ -1,7 +1,6 @@
 package kr.teentime.mainApi.domain;
 
 import jakarta.persistence.*;
-import kr.teentime.mainApi.domain.ManyToMany.AdminMember;
 import kr.teentime.mainApi.domain.ManyToMany.ClubMember;
 import kr.teentime.mainApi.domain.basic.BasicTime;
 import lombok.*;
@@ -47,5 +46,5 @@ public class Member extends BasicTime {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "member")
-    private List<AdminMember> admin;
+    private List<Admin> admins;
 }
