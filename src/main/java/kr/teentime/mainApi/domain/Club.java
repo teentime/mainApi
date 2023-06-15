@@ -5,6 +5,7 @@ import kr.teentime.mainApi.domain.basic.BasicEntity;
 import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -34,13 +35,9 @@ public class Club extends BasicEntity {
     private List<Post> posts;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "club")
-    private List<Admin> adminList;
-
-    @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "club")
-    private List<Admin> admin;
+    private List<Admin> admin = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ENUMS_clubType type;
