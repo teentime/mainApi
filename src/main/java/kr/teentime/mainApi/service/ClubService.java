@@ -1,12 +1,14 @@
 package kr.teentime.mainApi.service;
 
 import kr.teentime.mainApi.domain.Admin;
+import kr.teentime.mainApi.domain.AdminLog;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
+import kr.teentime.mainApi.repository.AdminLogRepository;
 import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
@@ -26,6 +28,7 @@ public class ClubService {
     private final ClubRepository clubRepository;
     private final MemberRepository memberRepository;
     private final AdminRepository adminRepository;
+    private final AdminLogRepository log;
 
     public void addClub(AddClubDto addClubDto) {
 
@@ -64,6 +67,8 @@ public class ClubService {
                 .member(member.get())
                 .build();
 
+        AdminLog adminLog = AdminLog.addLog("add admin");
+        log.save(adminLog);
         adminRepository.save(admin);
     }
 }
