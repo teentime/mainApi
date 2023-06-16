@@ -2,11 +2,13 @@ package kr.teentime.mainApi.service;
 
 import jakarta.persistence.EntityManager;
 import kr.teentime.mainApi.domain.Admin;
+import kr.teentime.mainApi.domain.AdminLog;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
+import kr.teentime.mainApi.repository.AdminLogRepository;
 import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
@@ -19,6 +21,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -38,6 +41,9 @@ class ClubServiceTest {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private AdminLogRepository adminLogRepository;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -103,5 +109,8 @@ class ClubServiceTest {
         // then
         Optional<Club> findClub = clubRepository.findByName(clubName);
         assertNotNull(adminRepository.findByClubAndMember(findClub.get(), member));
+
+        List<AdminLog> logs = adminLogRepository.findByClub(findClub.get());
+        assertNotNull(logs);
     }
 }
