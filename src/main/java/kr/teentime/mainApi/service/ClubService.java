@@ -67,7 +67,7 @@ public class ClubService {
                 .member(member.get())
                 .build();
 
-        AdminLog adminLog = AdminLog.addLog("add admin");
+        AdminLog adminLog = AdminLog.addLog("add admin", club.get());
         log.save(adminLog);
         adminRepository.save(admin);
     }
