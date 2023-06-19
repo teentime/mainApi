@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 public class BasicTime {
 
     @CreatedDate
-    @DateTimeFormat(pattern = "yyyy년 mm월 dd일 tt시 mm분")
+    @DateTimeFormat(pattern = "yy년 MM월 dd일 HH:mm:ss")
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @DateTimeFormat(pattern = "yyyy년 mm월 dd일 tt시 mm분")
+    @DateTimeFormat(pattern = "yy년 MM월 dd일 HH:mm:ss")
     private LocalDateTime lastModifiedDate;
 }

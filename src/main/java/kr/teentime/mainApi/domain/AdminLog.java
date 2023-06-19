@@ -33,7 +33,7 @@ public class AdminLog extends BasicEntity {
     }
 
     public static AdminLog addLog(String func, Club club) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 mm월 dd일");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:mm:ss");
         ZoneId zone = ZoneId.of("Asia/Seoul");
         String now = LocalDateTime.now().atZone(zone).format(format);
         String logMsg = now + " - ["+ func +"]";
