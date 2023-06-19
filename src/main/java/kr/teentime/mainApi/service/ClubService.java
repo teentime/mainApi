@@ -52,7 +52,7 @@ public class ClubService {
         /**
          * admin으로 승격시킬 유저
          */
-        Optional<Member> member = memberRepository.findByEmail(addAdminDto.getMemberEmail());
+        Optional<Member> member = memberRepository.findByNickName(addAdminDto.getNickName());
         if (member.isEmpty()) throw new UsernameNotFoundException("member is not exist");
 
         Member loginMember = Util.getLoginMember();
