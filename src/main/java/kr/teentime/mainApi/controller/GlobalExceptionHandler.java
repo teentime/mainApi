@@ -5,6 +5,7 @@ import kr.teentime.mainApi.util.Result;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,6 +17,13 @@ public class GlobalExceptionHandler {
             DataIntegrityViolationException ex) {
 
         return Result.error("bad data request", 400);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity UsernameNotFoundExceptionHandler(
+            UsernameNotFoundException ex) {
+
+        return Result.error(ex.getMessage(), 404);
     }
 
     @ExceptionHandler(UnexpectedTypeException.class)
