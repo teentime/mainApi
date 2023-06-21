@@ -57,9 +57,11 @@ class ClubServiceTest {
     void addClub() {
         // given
         String clubName = "testClub";
+        List<String> category = List.of("java", "프로그래밍");
         AddClubDto addClubDto = AddClubDto.builder()
                 .clubName(clubName)
-                .clubType("CLUB")
+                .explain("this club is just test club")
+                .category(category)
                 .build();
 
         //when
