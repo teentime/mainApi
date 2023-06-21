@@ -97,7 +97,7 @@ class ClubServiceTest {
         clubService.addClub(addClubDto);
 
         AddAdminDto addAdminDto = AddAdminDto.builder()
-                .memberEmail(member.getEmail())
+                .nickName(member.getNickName())
                 .clubName(clubName)
                 .build();
 
