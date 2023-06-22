@@ -3,6 +3,8 @@ package kr.teentime.mainApi.dto.club;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,5 +15,8 @@ public class AddClubDto {
     private String clubName;
 
     @NotEmpty
-    private String clubType;
+    private String intro;
+
+    @NotEmpty
+    private List<String> tags;
 }

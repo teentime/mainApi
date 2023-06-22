@@ -3,7 +3,6 @@ package kr.teentime.mainApi.testConfig;
 import kr.teentime.mainApi.config.security.userDetails.PrincipalDetails;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
-import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,8 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         Club club = Club.builder()
                 .name("test")
-                .type(ENUMS_clubType.CLUB)
+                .tags("[test]")
+                .intro("introduction")
                 .build();
         clubRepository.save(club);
 

@@ -3,10 +3,10 @@ package kr.teentime.mainApi.domain;
 import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.ManyToMany.ClubMember;
 import kr.teentime.mainApi.domain.basic.BasicEntity;
-import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Builder
@@ -45,6 +45,19 @@ public class Club extends BasicEntity {
             mappedBy = "club")
     private List<AdminLog> log;
 
-    @Enumerated(EnumType.STRING)
-    private ENUMS_clubType type;
+    private String intro;
+    private String tags;
+    private int star;
+
+    public List<String> getTags() {
+        String str = this.tags.substring(1, this.tags.length() - 1); // 대괄호 제거
+        List<String> list = Arrays.asList(str.split(", "));
+
+        return list;
+    }
+
+    @PrePersist
+    void init() {
+        this.star = 0;
+    }
 }

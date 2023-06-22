@@ -4,7 +4,6 @@ import kr.teentime.mainApi.domain.Admin;
 import kr.teentime.mainApi.domain.AdminLog;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
-import kr.teentime.mainApi.domain.enums.ENUMS_clubType;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
@@ -34,7 +33,8 @@ public class ClubService {
 
         Club club = Club.builder()
                 .name(addClubDto.getClubName())
-                .type(ENUMS_clubType.valueOf(addClubDto.getClubType()))
+                .tags(addClubDto.getTags().toString())
+                .intro(addClubDto.getIntro())
                 .build();
 
         club = clubRepository.save(club);

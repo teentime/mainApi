@@ -58,10 +58,11 @@ class ClubServiceTest {
         // given
         String clubName = "testClub";
         List<String> category = List.of("java", "프로그래밍");
+        String intro = "this club is just test club";
         AddClubDto addClubDto = AddClubDto.builder()
                 .clubName(clubName)
-                .explain("this club is just test club")
-                .category(category)
+                .intro(intro)
+                .tags(category)
                 .build();
 
         //when
@@ -94,7 +95,8 @@ class ClubServiceTest {
         String clubName = "addAdminTestClub";
         AddClubDto addClubDto = AddClubDto.builder()
                 .clubName(clubName)
-                .clubType("CLUB")
+                .intro("introduction")
+                .tags(List.of("test"))
                 .build();
         clubService.addClub(addClubDto);
 
