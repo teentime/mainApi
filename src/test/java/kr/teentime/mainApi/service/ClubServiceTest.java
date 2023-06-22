@@ -5,18 +5,22 @@ import kr.teentime.mainApi.domain.Admin;
 import kr.teentime.mainApi.domain.AdminLog;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
+import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
+import kr.teentime.mainApi.dto.club.FindClubDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.repository.AdminLogRepository;
 import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -116,5 +120,40 @@ class ClubServiceTest {
 
         List<AdminLog> logs = adminLogRepository.findByClub(findClub.get());
         assertNotNull(logs);
+    }
+
+    @Test
+    @DisplayName("동아리 검색 - 태그 활용")
+    void searchClubTag() {
+        // given
+        String clubName = "searchClubTest";
+        AddClubDto addClubDto = AddClubDto.builder()
+                .clubName(clubName)
+                .intro("introduction for search")
+                .tags(List.of("test", "search"))
+                .build();
+        clubService.addClub(addClubDto);
+
+        String clubName2 = "searchClubTest2";
+        AddClubDto addClubDto2 = AddClubDto.builder()
+                .clubName(clubName2)
+                .intro("introduction for search2")
+                .tags(List.of("test"))
+                .build();
+        clubService.addClub(addClubDto2);
+
+        Pageable page = Pageable.ofSize(1);
+
+        // when
+        PagingDto<FindClubDto> clubs = clubService.findByTag("", List.of("test"), page);
+        PagingDto<FindClubDto> clubBySearchTag = clubService.findByTag("", List.of("test", "search"), page);
+
+        // then
+        Assertions.assertThat(clubs.getTotalElement()).isEqualTo(2);
+        Assertions.assertThat(clubBySearchTag.getTotalElement()).isEqualTo(1);
+
+        Assertions.assertThat(clubBySearchTag.getItems().get(0).getName()).isEqualTo(clubName);
+        Assertions.assertThat(clubBySearchTag.getItems().get(0).getTags()).isEqualTo(List.of("test", "search"));
+
     }
 }

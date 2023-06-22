@@ -4,8 +4,10 @@ import kr.teentime.mainApi.domain.Admin;
 import kr.teentime.mainApi.domain.AdminLog;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
+import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
+import kr.teentime.mainApi.dto.club.FindClubDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.repository.AdminLogRepository;
 import kr.teentime.mainApi.repository.AdminRepository;
@@ -13,10 +15,12 @@ import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,5 +74,11 @@ public class ClubService {
         AdminLog adminLog = AdminLog.addLog("add admin", club.get());
         log.save(adminLog);
         adminRepository.save(admin);
+    }
+
+    public PagingDto<FindClubDto> findByTag(String keyword, List<String> tags, Pageable page) {
+        PagingDto<FindClubDto> clubs = clubRepository.findByTag(keyword, tags, page);
+
+        return clubs;
     }
 }
