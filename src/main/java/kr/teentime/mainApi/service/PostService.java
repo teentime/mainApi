@@ -29,7 +29,7 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final ClubRepository clubRepository;
 
-    public void writePost(PostWriteDto postWriteDto) throws NotFoundClubException {
+    public Long writePost(PostWriteDto postWriteDto) throws NotFoundClubException {
         Member loginMember = Util.getLoginMember();
         Member member = memberRepository.findById(loginMember.getId()).get();
         Optional<Club> club = clubRepository.findByName(postWriteDto.getClubName());
@@ -44,7 +44,9 @@ public class PostService {
                 .isAnon(postWriteDto.isAnon())
                 .build();
 
-        postRepository.save(post);
+        Post save = postRepository.save(post);
+
+        return save.getId();
     }
 
     public Page pagingPost(Pageable page, String keyword, String clubName) {

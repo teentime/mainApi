@@ -33,9 +33,9 @@ public class PostController {
     @PostMapping("/post/write")
     public ResponseEntity write(@RequestBody PostWriteDto postWriteDto) {
         try {
-            postService.writePost(postWriteDto);
+            Long postId = postService.writePost(postWriteDto);
 
-            return Result.ok(null);
+            return Result.ok(postId);
         } catch (NotFoundClubException e) {
             return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
         }
