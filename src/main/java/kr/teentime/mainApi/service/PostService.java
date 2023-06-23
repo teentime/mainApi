@@ -75,4 +75,12 @@ public class PostService {
 
         postRepository.delete(post.get());
     }
+
+    public void addThumbs(Long postId) throws PostNotFoundException {
+
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isEmpty()) throw new PostNotFoundException();
+
+        post.get().addThumbs(Util.getLoginMember());
+    }
 }

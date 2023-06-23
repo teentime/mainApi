@@ -1,11 +1,16 @@
 package kr.teentime.mainApi.service;
 
 import jakarta.persistence.EntityManager;
+import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.NotFoundClubException;
+import kr.teentime.mainApi.exception.PostNotFoundException;
+import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.repository.PostRepository;
+import kr.teentime.mainApi.repository.ThumbRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
+import kr.teentime.mainApi.util.Util;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,6 +40,12 @@ class PostServiceTest {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
+    ThumbRepository thumbRepository;
 
     @Autowired
     EntityManager em;
@@ -130,5 +141,33 @@ class PostServiceTest {
         assertNotNull(posts.getTotalElements() == 1);
     }
 
+    @Test
+    @DisplayName("추천 추가 테스트")
+    void thumbAddTest() throws NotFoundClubException, PostNotFoundException {
+        // given
+        String title = "test";
+        String content = "content";
 
+        PostWriteDto post = PostWriteDto.builder()
+                .title(title)
+                .content(content)
+                .clubName("test")
+                .isAnon(true)
+                .build();
+
+        Long postId = postService.writePost(post);
+
+        // when
+        postService.addThumbs(postId);
+        em.flush();
+        em.clear();
+
+        // then
+        Member loginMember = Util.getLoginMember();
+        Member member = memberRepository.findById(loginMember.getId()).get();
+        Assertions.assertThat(member.getThumbs().size()).isEqualTo(1);
+
+        Post findPost = postRepository.findById(postId).get();
+        Assertions.assertThat(findPost.getThumbs().size()).isEqualTo(1);
+    }
 }

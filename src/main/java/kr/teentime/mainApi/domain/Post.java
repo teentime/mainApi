@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import kr.teentime.mainApi.domain.basic.BasicEntity;
 import lombok.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -35,6 +35,11 @@ public class Post extends BasicEntity {
 
     private boolean isAnon;
 
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "post")
+    private List<Thumb> thumbs;
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -45,6 +50,19 @@ public class Post extends BasicEntity {
 
     public void addView() {
         this.view++;
+    }
+
+    public void addThumbs(Member member) {
+        if (this.thumbs == null) {
+            this.thumbs = new ArrayList<>();
+        }
+
+        Thumb thumb = Thumb.builder()
+                .post(this)
+                .thumbBy(member)
+                .build();
+
+        this.thumbs.add(thumb);
     }
 
     @PrePersist

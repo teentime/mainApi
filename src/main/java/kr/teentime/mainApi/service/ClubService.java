@@ -43,12 +43,15 @@ public class ClubService {
 
         club = clubRepository.save(club);
         Member loginMember = Util.getLoginMember();
+        Optional<Member> findMember = memberRepository.findById(loginMember.getId());
 
         Admin admin = Admin.builder()
                 .member(loginMember)
                 .club(club)
                 .build();
         adminRepository.save(admin);
+
+        findMember.get().addClub(club);
     }
 
     public void addAdmin(AddAdminDto addAdminDto) throws IllegalAccessException, ClubNotFoundException {
