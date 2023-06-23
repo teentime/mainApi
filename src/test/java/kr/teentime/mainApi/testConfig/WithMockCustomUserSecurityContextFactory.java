@@ -30,7 +30,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         Club club = Club.builder()
                 .name("test")
-                .tags("[test]")
+                .tags("[init]")
                 .intro("introduction")
                 .build();
         clubRepository.save(club);
