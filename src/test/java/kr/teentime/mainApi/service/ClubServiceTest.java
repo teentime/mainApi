@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Transactional
 @Rollback
 @ActiveProfiles("test")
+@WithMockCustomUser
 class ClubServiceTest {
 
     @Autowired
