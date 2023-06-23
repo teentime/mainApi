@@ -25,7 +25,7 @@ public class ClubRepositoryImpl implements ClubRepositoryCustom {
 
         List<FindClubDto> findClubDtos = query
                 .select(
-                        new QFindClubDto(club.name, club.intro, club.star, club.tags))
+                        new QFindClubDto(club.name, club.intro, club.thumb, club.tags))
                 .from(club)
                 .where(club.name.contains(keyword), tagsContains(tags))
                 .limit(pageable.getPageSize())

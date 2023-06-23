@@ -47,7 +47,7 @@ public class Club extends BasicEntity {
 
     private String intro;
     private String tags;
-    private int star;
+    private int thumb;
 
     public List<String> getTags() {
         String str = this.tags.substring(1, this.tags.length() - 1); // 대괄호 제거
@@ -58,6 +58,6 @@ public class Club extends BasicEntity {
 
     @PrePersist
     void init() {
-        this.star = 0;
+        this.thumb = 0;
     }
 }
