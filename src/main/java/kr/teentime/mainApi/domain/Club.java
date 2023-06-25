@@ -45,6 +45,11 @@ public class Club extends BasicEntity {
             mappedBy = "club")
     private List<AdminLog> log;
 
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "club")
+    private List<Review> review;
+
     private String intro;
     private String tags;
     private int thumb;
