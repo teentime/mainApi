@@ -5,7 +5,7 @@ import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.post.PostUpdateDto;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
-import kr.teentime.mainApi.exception.NotFoundClubException;
+import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
@@ -29,12 +29,12 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final ClubRepository clubRepository;
 
-    public Long writePost(PostWriteDto postWriteDto) throws NotFoundClubException {
+    public Long writePost(PostWriteDto postWriteDto) throws ClubNotFoundException {
         Member loginMember = Util.getLoginMember();
         Member member = memberRepository.findById(loginMember.getId()).get();
         Optional<Club> club = clubRepository.findByName(postWriteDto.getClubName());
 
-        if (club.isEmpty()) throw new NotFoundClubException();
+        if (club.isEmpty()) throw new ClubNotFoundException();
 
         Post post = Post.builder()
                 .member(member)

@@ -2,7 +2,7 @@ package kr.teentime.mainApi.controller;
 
 import kr.teentime.mainApi.dto.post.PostUpdateDto;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
-import kr.teentime.mainApi.exception.NotFoundClubException;
+import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.service.PostService;
 import kr.teentime.mainApi.util.Result;
@@ -36,7 +36,7 @@ public class PostController {
             Long postId = postService.writePost(postWriteDto);
 
             return Result.ok(postId);
-        } catch (NotFoundClubException e) {
+        } catch (ClubNotFoundException e) {
             return Result.error(e.getMessage(), HttpStatus.NOT_FOUND.value());
         }
     }

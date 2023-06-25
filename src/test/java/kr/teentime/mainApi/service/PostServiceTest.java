@@ -5,7 +5,7 @@ import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
-import kr.teentime.mainApi.exception.NotFoundClubException;
+import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
@@ -58,7 +58,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("포스트 작성")
-    void createPost() throws NotFoundClubException {
+    void createPost() throws ClubNotFoundException {
         // given
         String title = "test";
         String content = "content";
@@ -115,7 +115,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("포스트 가져오기 - 검색")
-    void searchPost() throws NotFoundClubException {
+    void searchPost() throws ClubNotFoundException {
         // given
         String title = "test";
         String content = "content";
@@ -153,7 +153,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("추천 추가 테스트")
-    void thumbAddTest() throws NotFoundClubException, PostNotFoundException {
+    void thumbAddTest() throws PostNotFoundException, ClubNotFoundException {
         // given
         String title = "test";
         String content = "content";
