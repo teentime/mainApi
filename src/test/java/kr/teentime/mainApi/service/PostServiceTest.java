@@ -1,11 +1,13 @@
 package kr.teentime.mainApi.service;
 
 import jakarta.persistence.EntityManager;
+import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.NotFoundClubException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
+import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.repository.ThumbRepository;
@@ -24,6 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -46,6 +49,9 @@ class PostServiceTest {
 
     @Autowired
     ThumbRepository thumbRepository;
+
+    @Autowired
+    ClubRepository clubRepository;
 
     @Autowired
     EntityManager em;
@@ -85,9 +91,12 @@ class PostServiceTest {
         String title = "test";
         String content = "content";
 
+        Optional<Club> club = clubRepository.findByName("test");
+
         Post post = Post.builder()
                 .title(title)
                 .content(content)
+                .club(club.get())
                 .isAnon(true)
                 .build();
 
