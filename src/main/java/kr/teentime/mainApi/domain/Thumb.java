@@ -18,10 +18,12 @@ public class Thumb extends BasicTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @Column(nullable = false)
     private Member thumbBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @Column(nullable = false)
     private Post post;
 
     @Builder

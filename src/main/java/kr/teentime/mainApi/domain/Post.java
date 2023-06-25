@@ -27,10 +27,12 @@ public class Post extends BasicEntity {
     @ManyToOne(cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @Column(nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id")
+    @Column(nullable = false)
     private Club club;
 
     private boolean isAnon;
