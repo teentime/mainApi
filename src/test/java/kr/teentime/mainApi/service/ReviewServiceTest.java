@@ -55,7 +55,7 @@ public class ReviewServiceTest {
                 .club(club.get())
                 .isAnon(true)
                 .star(10)
-                .content("괜찮은 것 같아요")
+                .content("test review")
                 .build();
 
         reviewRepository.save(review);
