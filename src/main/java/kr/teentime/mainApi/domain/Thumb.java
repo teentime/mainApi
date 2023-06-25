@@ -17,13 +17,13 @@ public class Thumb extends BasicTime {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "member_id",
+            nullable = false)
     private Member thumbBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "post_id",
+            nullable = false)
     private Post post;
 
     @Builder

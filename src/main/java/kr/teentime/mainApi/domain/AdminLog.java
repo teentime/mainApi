@@ -23,7 +23,8 @@ public class AdminLog extends BasicEntity {
     private String log;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "club_id",
+            nullable = false)
     private Club club;
 
     @Builder

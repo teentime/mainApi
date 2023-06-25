@@ -28,7 +28,6 @@ public class Club extends BasicEntity {
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "club")
-    @Column(nullable = false)
     private List<ClubMember> members;
 
     @OneToMany(fetch = FetchType.LAZY,
@@ -39,7 +38,6 @@ public class Club extends BasicEntity {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "club")
-    @Column(nullable = false)
     private List<Admin> admin = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,

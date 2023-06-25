@@ -96,6 +96,7 @@ class PostServiceTest {
         Post post = Post.builder()
                 .title(title)
                 .content(content)
+                .member(Util.getLoginMember())
                 .club(club.get())
                 .isAnon(true)
                 .build();
