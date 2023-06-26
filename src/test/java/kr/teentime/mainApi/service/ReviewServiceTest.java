@@ -5,6 +5,7 @@ import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Review;
 import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.club.AddReviewDto;
+import kr.teentime.mainApi.dto.club.FindClubDto;
 import kr.teentime.mainApi.dto.club.ReviewDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.repository.ClubRepository;
@@ -21,6 +22,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -32,7 +34,8 @@ public class ReviewServiceTest {
     
     @Autowired
     private PostService postService;
-
+    @Autowired
+    private ClubService clubService;
     @Autowired
     private ReviewService reviewService;
     @Autowired
@@ -65,11 +68,13 @@ public class ReviewServiceTest {
 
         // when
         PagingDto<ReviewDto> reviewDto = reviewService.findReview(page, "test");
+        PagingDto<FindClubDto> clubs = clubService.findClub("test", List.of(), PageRequest.of(0, 20));
 
         // then
         org.junit.jupiter.api.Assertions.assertNotNull(reviewDto.getItems());
         Assertions.assertThat(reviewDto.getTotalElement()).isNotEqualTo(0);
         Assertions.assertThat(reviewDto.getItems().get(0).getContent()).isEqualTo("test review");
+        Assertions.assertThat(clubs.getItems().get(0).getStarAvg()).isEqualTo(10);
         Assertions.assertThat(reviewDto.getItems().get(0).getReviewedBy()).isEqualTo("익명");
     }
 
