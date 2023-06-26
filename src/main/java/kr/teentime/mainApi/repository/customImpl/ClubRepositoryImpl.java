@@ -2,6 +2,7 @@ package kr.teentime.mainApi.repository.customImpl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import kr.teentime.mainApi.domain.QReview;
 import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.club.FindClubDto;
 import kr.teentime.mainApi.dto.club.QFindClubDto;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static kr.teentime.mainApi.domain.QClub.club;
+import static kr.teentime.mainApi.domain.QReview.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,9 +27,11 @@ public class ClubRepositoryImpl implements ClubRepositoryCustom {
 
         List<FindClubDto> findClubDtos = query
                 .select(
-                        new QFindClubDto(club.name, club.intro, club.thumb, club.tags))
+                        new QFindClubDto(club.name, club.intro, review.star.avg(), club.tags))
                 .from(club)
+                .leftJoin(club.review, review)
                 .where(club.name.contains(keyword), tagsContains(tags))
+                .groupBy(club.name, club.intro, club.tags)
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
                 .fetch();
@@ -47,8 +51,9 @@ public class ClubRepositoryImpl implements ClubRepositoryCustom {
         BooleanExpression query = null;
 
         for (String tag : tags) {
-            if (query == null) query = club.tags.contains(tag);
-            else query = query.and(club.tags.contains(tag));
+            if (tag.isBlank() || tag.isEmpty()) continue;
+            if (query == null) query = club.tags.containsIgnoreCase(tag);
+            else query = query.and(club.tags.containsIgnoreCase(tag));
         }
 
         return query;
