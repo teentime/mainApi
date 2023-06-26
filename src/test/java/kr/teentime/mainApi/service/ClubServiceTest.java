@@ -145,9 +145,13 @@ class ClubServiceTest {
 
         Pageable page = Pageable.ofSize(1);
 
+        em.flush();
+        em.clear();
+
         // when
-        PagingDto<FindClubDto> clubs = clubService.findByTag("", List.of("test"), page);
-        PagingDto<FindClubDto> clubBySearchTag = clubService.findByTag("", List.of("test", "search"), page);
+        List<Club> all = clubRepository.findAll();
+        PagingDto<FindClubDto> clubs = clubService.findClub("", List.of("test"), page);
+        PagingDto<FindClubDto> clubBySearchTag = clubService.findClub("", List.of("test", "search"), page);
 
         // then
         Assertions.assertThat(clubs.getTotalElement()).isEqualTo(2);

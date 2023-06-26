@@ -8,7 +8,6 @@ import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.admin.AddAdminDto;
 import kr.teentime.mainApi.dto.club.AddClubDto;
 import kr.teentime.mainApi.dto.club.FindClubDto;
-import kr.teentime.mainApi.dto.club.ReviewDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.repository.*;
 import kr.teentime.mainApi.util.Util;
@@ -77,7 +76,7 @@ public class ClubService {
         adminRepository.save(admin);
     }
 
-    public PagingDto<FindClubDto> findByTag(String keyword, List<String> tags, Pageable page) {
+    public PagingDto<FindClubDto> findClub(String keyword, List<String> tags, Pageable page) {
         PagingDto<FindClubDto> clubs = clubRepository.findByTag(keyword, tags, page);
 
         return clubs;

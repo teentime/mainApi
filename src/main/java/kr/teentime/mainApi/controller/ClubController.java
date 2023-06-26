@@ -44,7 +44,7 @@ public class ClubController {
     public ResponseEntity searchClubs(@RequestParam("query") String keyword,
                                       @RequestParam("tags") List<String> tags,
                                       Pageable pageable) {
-        PagingDto<FindClubDto> clubs = clubService.findByTag(keyword, tags, pageable);
+        PagingDto<FindClubDto> clubs = clubService.findClub(keyword, tags, pageable);
 
         return Result.ok(clubs);
     }
