@@ -9,15 +9,22 @@ import java.util.List;
 @Data
 public class FindClubDto {
 
+    // 동아리 이름
     private String name;
-    private String intro;
+
+    // 동아리 평점
     private double starAvg;
+    private String leader;
+
+    // 동아리 인원수
+    private int memberCnt;
     private List<String> tags;
 
     @QueryProjection
-    public FindClubDto(String name, String intro, Double star, String tags) {
+    public FindClubDto(String name, String leader, Double star, String tags, Integer memberCnt) {
         this.name = name;
-        this.intro = intro;
+        this.leader = leader;
+        this.memberCnt = memberCnt;
 
         // 평점이 0인 경우 0점으로 처리
         this.starAvg = star == null ? 0 : star;

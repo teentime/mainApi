@@ -2,7 +2,6 @@ package kr.teentime.mainApi.repository.customImpl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.teentime.mainApi.domain.QReview;
 import kr.teentime.mainApi.dto.PagingDto;
 import kr.teentime.mainApi.dto.club.FindClubDto;
 import kr.teentime.mainApi.dto.club.QFindClubDto;
@@ -14,7 +13,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static kr.teentime.mainApi.domain.QClub.club;
-import static kr.teentime.mainApi.domain.QReview.*;
+import static kr.teentime.mainApi.domain.QMember.member;
+import static kr.teentime.mainApi.domain.QReview.review;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,9 +27,11 @@ public class ClubRepositoryImpl implements ClubRepositoryCustom {
 
         List<FindClubDto> findClubDtos = query
                 .select(
-                        new QFindClubDto(club.name, club.intro, review.star.avg(), club.tags))
+                        new QFindClubDto(club.name, member.nickName, review.star.avg(), club.tags, club.members.size()))
                 .from(club)
                 .leftJoin(club.review, review)
+                .leftJoin(member)
+                    .on(member.id.eq(club.createdBy))
                 .where(club.name.contains(keyword), tagsContains(tags))
                 .groupBy(club.name, club.intro, club.tags)
                 .limit(pageable.getPageSize())

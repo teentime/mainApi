@@ -15,7 +15,7 @@ import kr.teentime.mainApi.repository.AdminRepository;
 import kr.teentime.mainApi.repository.ClubRepository;
 import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.testConfig.WithMockCustomUser;
-import org.assertj.core.api.Assertions;
+import kr.teentime.mainApi.util.Util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -154,11 +156,13 @@ class ClubServiceTest {
         PagingDto<FindClubDto> clubBySearchTag = clubService.findClub("", List.of("test", "search"), page);
 
         // then
-        Assertions.assertThat(clubs.getTotalElement()).isEqualTo(2);
-        Assertions.assertThat(clubBySearchTag.getTotalElement()).isEqualTo(1);
+        assertThat(clubs.getTotalElement()).isEqualTo(2);
+        assertThat(clubBySearchTag.getTotalElement()).isEqualTo(1);
 
-        Assertions.assertThat(clubBySearchTag.getItems().get(0).getName()).isEqualTo(clubName);
-        Assertions.assertThat(clubBySearchTag.getItems().get(0).getTags()).isEqualTo(List.of("test", "search"));
+        assertThat(clubBySearchTag.getItems().get(0).getName()).isEqualTo(clubName);
+        assertThat(clubBySearchTag.getItems().get(0).getTags()).isEqualTo(List.of("test", "search"));
 
+        assertThat(clubBySearchTag.getItems().get(0).getLeader())
+                .isEqualTo(Objects.requireNonNull(Util.getLoginMember()).getNickName());
     }
 }
