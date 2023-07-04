@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
+import kr.teentime.mainApi.dto.PagingDto;
+import kr.teentime.mainApi.dto.post.PostPagingDto;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
 import kr.teentime.mainApi.exception.PostNotFoundException;
@@ -18,7 +20,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
@@ -107,10 +108,11 @@ class PostServiceTest {
 
         // when
 
-        Page posts = postService.pagingPost(page, "", "test");
+        PagingDto<PostPagingDto> posts = postService.pagingPost(page, "", "test");
 
         // then
-        assertNotNull(posts.getContent());
+        assertNotNull(posts.getTotalElement());
+        Assertions.assertThat(posts.getItems().get(0).getTitle()).isEqualTo(title);
     }
 
     @Test
@@ -143,12 +145,17 @@ class PostServiceTest {
 
         Pageable page = PageRequest.of(0, 20);
 
-        // when
+        em.flush();
+        em.clear();
 
-        Page posts = postService.pagingPost(page, "second", "test");
+        // when
+        PagingDto<PostPagingDto> posts = postService.pagingPost(page, "second", "test");
+        PagingDto<PostPagingDto> postWOclub = postService.pagingPost(page, "second", null);
 
         // then
-        assertNotNull(posts.getTotalElements() == 1);
+        assertNotNull(posts.getTotalElement() == 1);
+        Assertions.assertThat(posts.getItems().get(0).getClub()).isEqualTo("test");
+        Assertions.assertThat(postWOclub.getItems().get(0).getClub()).isEqualTo("");
     }
 
     @Test

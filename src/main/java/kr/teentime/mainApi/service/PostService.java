@@ -3,6 +3,8 @@ package kr.teentime.mainApi.service;
 import kr.teentime.mainApi.domain.Club;
 import kr.teentime.mainApi.domain.Member;
 import kr.teentime.mainApi.domain.Post;
+import kr.teentime.mainApi.dto.PagingDto;
+import kr.teentime.mainApi.dto.post.PostPagingDto;
 import kr.teentime.mainApi.dto.post.PostUpdateDto;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
@@ -12,7 +14,6 @@ import kr.teentime.mainApi.repository.MemberRepository;
 import kr.teentime.mainApi.repository.PostRepository;
 import kr.teentime.mainApi.util.Util;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,8 +50,8 @@ public class PostService {
         return save.getId();
     }
 
-    public Page pagingPost(Pageable page, String keyword, String clubName) {
-        Page pagingPost = postRepository.pagingPost(page, keyword, clubName);
+    public PagingDto<PostPagingDto> pagingPost(Pageable page, String keyword, String clubName) {
+        PagingDto<PostPagingDto> pagingPost = postRepository.pagingPost(page, keyword, clubName);
 
         return pagingPost;
     }

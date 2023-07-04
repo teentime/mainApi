@@ -1,5 +1,7 @@
 package kr.teentime.mainApi.controller;
 
+import kr.teentime.mainApi.dto.PagingDto;
+import kr.teentime.mainApi.dto.post.PostPagingDto;
 import kr.teentime.mainApi.dto.post.PostUpdateDto;
 import kr.teentime.mainApi.dto.post.PostWriteDto;
 import kr.teentime.mainApi.exception.ClubNotFoundException;
@@ -7,7 +9,6 @@ import kr.teentime.mainApi.exception.PostNotFoundException;
 import kr.teentime.mainApi.service.PostService;
 import kr.teentime.mainApi.util.Result;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class PostController {
                                @RequestParam(defaultValue = "", required = false) String keyword,
                                @PathVariable("clubName") String clubName) {
 
-        Page page = postService.pagingPost(pageable, keyword, clubName);
+        PagingDto<PostPagingDto> page = postService.pagingPost(pageable, keyword, clubName);
 
         return ResponseEntity.ok(page);
     }
