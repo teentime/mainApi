@@ -18,13 +18,16 @@ public class PostPagingDto {
     private Long favoriteCnt = 0L;
     private LocalDateTime createdAt;
     private String wroteBy;
+    private String club;
 
     @QueryProjection
-    public PostPagingDto(String title, String content, Long view, LocalDateTime createdAt, String wroteBy) {
+    public PostPagingDto(String title, String content, Long view,
+                         LocalDateTime createdAt, String wroteBy, String club) {
         this.title = title;
         this.content = content;
         this.view = view;
         this.createdAt = createdAt;
         this.wroteBy = wroteBy;
+        this.club = club;
     }
 }

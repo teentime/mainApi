@@ -1,12 +1,11 @@
 package kr.teentime.mainApi.repository.custom;
 
-import org.springframework.data.domain.Page;
+import kr.teentime.mainApi.dto.PagingDto;
+import kr.teentime.mainApi.dto.post.PostPagingDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface PostRepositoryCustom {
-    Page pagingPost(Pageable page, String keyword, String clubName);
+    PagingDto<PostPagingDto> pagingPost(Pageable page, String keyword, String clubName);
 }
