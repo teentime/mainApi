@@ -1,5 +1,5 @@
 package kr.teentime.mainApi.global.entity.constant
 
-enum class Status {
+enum class GenericStatus {
     ACTIVATE, DEACTIVATE
 }

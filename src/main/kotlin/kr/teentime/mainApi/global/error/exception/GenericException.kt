@@ -1,4 +1,4 @@
 package kr.teentime.mainApi.global.error.exception
 
-class BasicException(): RuntimeException() {
+class GenericException(): RuntimeException() {
 }

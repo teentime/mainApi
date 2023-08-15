@@ -1,7 +1,7 @@
 package kr.teentime.mainApi.domain.member.exception
 
+import kr.teentime.mainApi.global.error.ErrorCode
+
 class MemberNotFoundException(
-    val msg: String = "유저를 찾지 못했습니다.",
-    val status: Int = 404
-): RuntimeException() {
-}
+    val code: ErrorCode = ErrorCode.MEMBER_NOT_FOUND
+): RuntimeException()

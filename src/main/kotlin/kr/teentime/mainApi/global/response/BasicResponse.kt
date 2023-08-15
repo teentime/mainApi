@@ -17,7 +17,7 @@ data class BasicResponse<T> (
             .status(200)
             .body(data)
 
-        fun created(data: Any) = ResponseEntity
+        fun created(data: Any?) = ResponseEntity
             .status(201)
             .body(data)
     }

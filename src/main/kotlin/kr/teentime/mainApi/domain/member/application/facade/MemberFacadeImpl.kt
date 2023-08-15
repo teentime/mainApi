@@ -2,6 +2,7 @@ package kr.teentime.mainApi.domain.member.application.facade
 
 import kr.teentime.mainApi.domain.member.application.usecase.SaveMemberUseCase
 import kr.teentime.mainApi.domain.member.application.usecase.SearchMemberByIdUseCase
+import kr.teentime.mainApi.domain.member.domain.Member
 import kr.teentime.mainApi.domain.member.presentation.dto.request.SaveMemberRequest
 import kr.teentime.mainApi.domain.member.presentation.dto.request.SearchMemberByIdRequest
 import kr.teentime.mainApi.domain.member.presentation.dto.response.SaveMemberResponse
@@ -17,7 +18,12 @@ class MemberFacadeImpl(
         }
 
     override fun saveMember(req: SaveMemberRequest): SaveMemberResponse {
-        TODO()
+        saveMemberUseCase.execute(Member(
+            nickname = req.nickname,
+            password = req.password,
+            school = req.schoolId,
+            sEmail = req.sEmail,
+        ))
     }
 
 }

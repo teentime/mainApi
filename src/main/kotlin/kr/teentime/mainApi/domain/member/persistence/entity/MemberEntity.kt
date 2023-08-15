@@ -2,7 +2,7 @@ package kr.teentime.mainApi.domain.member.persistence.entity
 
 
 import jakarta.persistence.*
-import kr.teentime.mainApi.domain.school.domain.School
+import kr.teentime.mainApi.domain.school.adapter.out.persistence.entity.SchoolEntity
 
 @Entity
 @Table(name = "member")
@@ -33,5 +33,5 @@ class MemberEntity(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "school_code")
-        var school: School,
+        var school: SchoolEntity,
 )

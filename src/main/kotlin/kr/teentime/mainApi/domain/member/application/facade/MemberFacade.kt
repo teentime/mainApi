@@ -4,7 +4,9 @@ import kr.teentime.mainApi.domain.member.presentation.dto.request.SaveMemberRequ
 import kr.teentime.mainApi.domain.member.presentation.dto.request.SearchMemberByIdRequest
 import kr.teentime.mainApi.domain.member.presentation.dto.response.SaveMemberResponse
 import kr.teentime.mainApi.domain.member.presentation.dto.response.SearchMemberResponse
+import org.springframework.stereotype.Component
 
+@Component
 interface MemberFacade {
     fun searchMemberById(req: SearchMemberByIdRequest): SearchMemberResponse
     fun saveMember(req: SaveMemberRequest): SaveMemberResponse

@@ -1,19 +1,12 @@
 package kr.teentime.mainApi.domain.school.domain
 
-import jakarta.persistence.*
-import kr.teentime.mainApi.domain.member.domain.Member
-import kr.teentime.mainApi.global.entity.constant.Status
-import lombok.Builder
+import kr.teentime.mainApi.domain.member.persistence.entity.MemberEntity
+import kr.teentime.mainApi.global.entity.constant.GenericStatus
 
-@Entity @Builder
 class School (
-    @Id @Column(name = "school_code")
-    private var code: String,
-    private var prefix: String,
-    private var status: Status,
-
-    @OneToMany(fetch = FetchType.LAZY,
-        cascade = [CascadeType.PERSIST, CascadeType.REMOVE],
-        mappedBy = "school")
-    private var members: ArrayList<Member>
+    var code: String,
+    var name: String,
+    var prefix: String,
+    var status: GenericStatus,
+    var members: ArrayList<MemberEntity>
 )

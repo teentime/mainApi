@@ -12,5 +12,6 @@ class SearchMemberByIdUseCase(
     private val memberService: MemberService
 ) {
     fun execute(memberId: Long): Member =
-        memberService.queryMemberById(memberId) ?: throw MemberNotFoundException()
+        memberService.queryMemberById(memberId) ?:
+        throw MemberNotFoundException()
 }

@@ -1,7 +1,7 @@
 package kr.teentime.mainApi.domain.member.exception
 
+import kr.teentime.mainApi.global.error.ErrorCode
+
 class MemberNotSavedException(
-        val msg: String = "유저 등록에 실패했습니다.",
-        val status: Int = 400
-): RuntimeException() {
-}
+        val code: ErrorCode = ErrorCode.MEMBER_NOT_SAVED
+): RuntimeException()

@@ -6,7 +6,6 @@ import kr.teentime.mainApi.domain.member.exception.MemberNotSavedException
 import kr.teentime.mainApi.domain.member.persistence.mapper.MemberMapper
 import kr.teentime.mainApi.domain.member.persistence.repository.MemberRepository
 import org.springframework.stereotype.Repository
-import kotlin.jvm.optionals.getOrNull
 
 @Repository
 class MemberPersistenceAdapter(
@@ -21,8 +20,8 @@ class MemberPersistenceAdapter(
 
     override fun queryFindById(memberId: Long): Member? {
 
-        val findById = memberRepository.findById(memberId)
+        val findById = memberRepository.findByIdOrNull(memberId)
 
-        return mapper.toDomain(findById.getOrNull())
+        return mapper.toDomain(findById)
     }
 }
