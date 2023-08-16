@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 
 @Component
-interface SchoolRepository: JpaRepository<SchoolEntity, Long> {
+interface SchoolRepository: JpaRepository<SchoolEntity, String> {
 
 }

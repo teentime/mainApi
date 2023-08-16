@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.domain.member.persistence.entity
+package kr.teentime.mainApi.domain.member.adapter.out.persistence.entity
 
 
 import jakarta.persistence.*
@@ -9,7 +9,7 @@ import kr.teentime.mainApi.domain.school.adapter.out.persistence.entity.SchoolEn
 class MemberEntity(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "member_id")
-        var id: Long,
+        var id: Long?,
 
         @Column(nullable = false,
                 length = 10,
@@ -33,5 +33,5 @@ class MemberEntity(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "school_code")
-        var school: SchoolEntity,
+        var school: SchoolEntity?,
 )

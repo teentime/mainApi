@@ -1,7 +1,7 @@
-package kr.teentime.mainApi.domain.member.persistence.mapper
+package kr.teentime.mainApi.domain.member.adapter.out.persistence.mapper
 
 import kr.teentime.mainApi.domain.member.domain.Member
-import kr.teentime.mainApi.domain.member.persistence.entity.MemberEntity
+import kr.teentime.mainApi.domain.member.adapter.out.persistence.entity.MemberEntity
 import kr.teentime.mainApi.domain.school.adapter.out.persistence.mapper.SchoolMapper
 import kr.teentime.mainApi.domain.school.exception.SchoolNotFoundException
 import kr.teentime.mainApi.global.mapper.GenericMapper

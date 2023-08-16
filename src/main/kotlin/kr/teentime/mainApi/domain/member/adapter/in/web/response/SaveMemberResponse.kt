@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.domain.member.presentation.dto.response
+package kr.teentime.mainApi.domain.member.adapter.`in`.web.response
 
 import kr.teentime.mainApi.domain.school.domain.School
 

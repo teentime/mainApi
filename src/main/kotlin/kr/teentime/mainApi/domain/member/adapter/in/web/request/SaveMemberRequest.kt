@@ -1,9 +1,9 @@
-package kr.teentime.mainApi.domain.member.presentation.dto.request
+package kr.teentime.mainApi.domain.member.adapter.`in`.web.request
 
 data class SaveMemberRequest (
     var nickname: String,
     var password: String,
     var pNumber: String,
     var sEmail: String,
-    var schoolId: Int,
+    var schoolId: String,
 )

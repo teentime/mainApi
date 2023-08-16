@@ -1,6 +1,6 @@
 package kr.teentime.mainApi.domain.school.domain
 
-import kr.teentime.mainApi.domain.member.persistence.entity.MemberEntity
+import kr.teentime.mainApi.domain.member.adapter.out.persistence.entity.MemberEntity
 import kr.teentime.mainApi.global.entity.constant.GenericStatus
 
 class School (

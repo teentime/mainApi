@@ -1,7 +1,7 @@
 package kr.teentime.mainApi.domain.school.adapter.out.persistence.entity
 
 import jakarta.persistence.*
-import kr.teentime.mainApi.domain.member.persistence.entity.MemberEntity
+import kr.teentime.mainApi.domain.member.adapter.out.persistence.entity.MemberEntity
 import kr.teentime.mainApi.global.entity.constant.GenericStatus
 
 @Entity
