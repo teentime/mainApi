@@ -1,4 +1,6 @@
 package kr.teentime.mainApi.global.error.exception
 
-class GenericException(): RuntimeException() {
+import kr.teentime.mainApi.global.error.ErrorCode
+
+open class GenericException(open val code: ErrorCode): RuntimeException() {
 }

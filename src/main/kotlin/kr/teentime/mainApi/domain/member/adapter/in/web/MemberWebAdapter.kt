@@ -21,14 +21,10 @@ class MemberWebAdapter(
 ) {
 
     @PostMapping("/join")
-    fun join(@RequestBody joinDto: SaveMemberRequest) {
-        try {
-            val saveMember = saveMemberUseCase.execute(joinDto)
-            BasicResponse.created(saveMember)
-        } catch (e: MemberNotSavedException) {
-            BasicResponse.error(ErrorCode.MEMBER_NOT_SAVED)
-        }
-    }
+    fun join(@RequestBody joinDto: SaveMemberRequest) =
+            saveMemberUseCase.execute(joinDto).let {
+                BasicResponse.created(it)
+            }
 
     @GetMapping("/:id")
     fun searchById(@RequestParam memberId: Long) =
