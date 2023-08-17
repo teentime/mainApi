@@ -1,6 +1,7 @@
 package kr.teentime.mainApi.global.response
 
 import kr.teentime.mainApi.global.error.ErrorCode
+import kr.teentime.mainApi.global.error.dto.ErrorResponse
 import org.springframework.http.ResponseEntity
 
 data class BasicResponse<T> (
@@ -11,7 +12,7 @@ data class BasicResponse<T> (
     companion object {
         fun error(errorInfo: ErrorCode) = ResponseEntity
             .status(errorInfo.code)
-            .body(errorInfo.msg)
+            .body(ErrorResponse(errorInfo.msg))
 
         fun ok(data: Any) = ResponseEntity
             .status(200)
