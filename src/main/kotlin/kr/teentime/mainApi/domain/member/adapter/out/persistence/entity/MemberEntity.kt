@@ -26,8 +26,7 @@ class MemberEntity(
         var pNumber: String,
 
         /** 학교 이메일 */
-        @Column(length = 11,
-                unique = true,
+        @Column(unique = true,
                 nullable = false)
         var sEmail: String,
 

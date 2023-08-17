@@ -5,5 +5,4 @@ data class SaveMemberRequest (
     var password: String,
     var pNumber: String,
     var sEmail: String,
-    var schoolId: String,
 )

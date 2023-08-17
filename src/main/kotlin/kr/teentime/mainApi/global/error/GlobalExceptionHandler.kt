@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception::class)
-    fun exceptionHandler(): ResponseEntity<ErrorResponse> =
-        BasicResponse.error(ErrorCode.INTERNAL_SERVER_ERROR)
+    fun exceptionHandler(e: Exception): ResponseEntity<ErrorResponse> {
+        println(e.stackTraceToString())
+        return BasicResponse.error(ErrorCode.INTERNAL_SERVER_ERROR)
+    }
 
     @ExceptionHandler(GenericException::class)
     fun genericExceptionHandler(e: GenericException): ResponseEntity<ErrorResponse> =
