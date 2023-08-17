@@ -4,8 +4,6 @@ import kr.teentime.mainApi.domain.member.adapter.`in`.web.request.SaveMemberRequ
 import kr.teentime.mainApi.domain.member.domain.Member
 import kr.teentime.mainApi.domain.member.port.`in`.SaveMemberUseCase
 import kr.teentime.mainApi.domain.member.port.out.MemberPort
-import kr.teentime.mainApi.domain.school.adapter.out.persistence.mapper.SchoolMapper
-import kr.teentime.mainApi.domain.school.adapter.out.persistence.repository.SchoolRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -14,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class CommandMemberService(
     private val memberPort: MemberPort,
-    private val schoolRepository: SchoolRepository,
-    private val schoolMapper: SchoolMapper,
     private val passwordEncoder: PasswordEncoder
 ): SaveMemberUseCase {
     override fun execute(req: SaveMemberRequest) {
