@@ -4,6 +4,5 @@ import kr.teentime.mainApi.domain.member.adapter.out.persistence.entity.MemberEn
 import org.springframework.data.repository.CrudRepository
 
 interface MemberRepository : CrudRepository<MemberEntity, Long> {
-    fun findByIdOrNull(memberId: Long): MemberEntity?
 
 }

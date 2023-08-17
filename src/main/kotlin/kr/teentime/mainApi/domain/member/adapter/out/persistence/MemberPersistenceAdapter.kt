@@ -21,8 +21,10 @@ class MemberPersistenceAdapter(
 
     override fun queryFindById(memberId: Long): Member {
 
-        val findById = memberRepository.findByIdOrNull(memberId)
+        val findById = memberRepository.findById(memberId)
 
-        return mapper.toDomain(findById) ?: throw MemberNotFoundException()
+        if (findById.isEmpty) throw MemberNotFoundException()
+
+        return mapper.toDomain(findById.get())!!
     }
 }
