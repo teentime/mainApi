@@ -5,7 +5,9 @@ import kr.teentime.mainApi.domain.school.adapter.out.persistence.repository.Scho
 import kr.teentime.mainApi.domain.school.domain.School
 import kr.teentime.mainApi.domain.school.exception.SchoolNotSavedException
 import kr.teentime.mainApi.domain.school.port.out.CommandSchoolPort
+import org.springframework.stereotype.Repository
 
+@Repository
 class SchoolPersistenceAdapter(
     private val schoolMapper: SchoolMapper,
     private val schoolRepository: SchoolRepository,

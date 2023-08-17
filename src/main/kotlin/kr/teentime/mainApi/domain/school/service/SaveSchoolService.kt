@@ -7,7 +7,9 @@ import kr.teentime.mainApi.domain.school.domain.School
 import kr.teentime.mainApi.domain.school.exception.SchoolNotSavedException
 import kr.teentime.mainApi.domain.school.port.`in`.SaveSchoolUseCase
 import kr.teentime.mainApi.global.entity.constant.GenericStatus
+import org.springframework.stereotype.Component
 
+@Component
 class SaveSchoolService(
     private val schoolRepository: SchoolRepository,
     private val schoolMapper: SchoolMapper,
