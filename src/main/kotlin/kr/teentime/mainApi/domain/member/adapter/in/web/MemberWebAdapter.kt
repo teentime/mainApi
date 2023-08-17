@@ -29,4 +29,7 @@ class MemberWebAdapter(
         }
     }
 
+    @GetMapping("/:id")
+    fun searchById(@RequestParam memberId: Long) =
+        searchMemberByIdUseCase.execute(memberId)
 }
