@@ -7,7 +7,7 @@ import kr.teentime.mainApi.domain.member.port.`in`.SearchMemberByIdUseCase
 class QueryMemberByIdService(
     private val memberPort: MemberPort
 ): SearchMemberByIdUseCase {
-    override fun searchById(memberId: Long): Member = memberPort.queryFindById(memberId)
+    override fun execute(memberId: Long): Member = memberPort.queryFindById(memberId)
 
 
 }

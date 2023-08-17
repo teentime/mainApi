@@ -16,7 +16,7 @@ class CommandMemberService(
     private val schoolMapper: SchoolMapper,
     private val passwordEncoder: PasswordEncoder
 ): SaveMemberUseCase {
-    override fun save(req: SaveMemberRequest) {
+    override fun execute(req: SaveMemberRequest) {
         req.let {
             val encodePwd = passwordEncoder.encode(it.password)
             val school = schoolRepository.findByIdOrNull(it.schoolId)
