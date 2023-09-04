@@ -13,6 +13,6 @@ data class Member(
     var password: String,
     var pNumber: String,
     var sEmail: String,
-    var role: MutableCollection<MemberRole>,
+    var role: MemberRole,
     var school: School?,
 )

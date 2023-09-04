@@ -2,6 +2,7 @@ package kr.teentime.mainApi.domain.member.service
 
 import kr.teentime.mainApi.domain.member.adapter.`in`.web.request.SaveMemberRequest
 import kr.teentime.mainApi.domain.member.domain.Member
+import kr.teentime.mainApi.domain.member.domain.constant.MemberRole
 import kr.teentime.mainApi.domain.member.port.`in`.SaveMemberUseCase
 import kr.teentime.mainApi.domain.member.port.out.MemberPort
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -24,6 +25,7 @@ class CommandMemberService(
                 pNumber = it.pNumber,
                 sEmail = it.sEmail,
                 school = null,
+                role = MemberRole.STUDENT,
                 id = null
             )
 
