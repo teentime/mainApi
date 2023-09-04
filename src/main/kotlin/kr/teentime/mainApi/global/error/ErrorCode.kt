@@ -11,4 +11,6 @@ enum class ErrorCode(
     SCHOOL_NOT_FOUND("학교를 찾을 수 없습니다.", 404),
 
     INTERNAL_SERVER_ERROR("서버 에러!", 500),
+    FORBIDDEN_ERROR("접근 권한이 없습니다.", 403),
+    UNAUTHORIZED_ERROR("미로그인 사용자입니다.", 401),
 }

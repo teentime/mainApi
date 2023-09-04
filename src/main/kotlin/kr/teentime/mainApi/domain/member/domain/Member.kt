@@ -1,5 +1,6 @@
 package kr.teentime.mainApi.domain.member.domain
 
+import kr.teentime.mainApi.domain.member.domain.constant.MemberRole
 import kr.teentime.mainApi.domain.school.domain.School
 import lombok.AllArgsConstructor
 import lombok.Builder
@@ -12,5 +13,6 @@ data class Member(
     var password: String,
     var pNumber: String,
     var sEmail: String,
+    var role: MutableCollection<MemberRole>,
     var school: School?,
 )

@@ -2,6 +2,7 @@ package kr.teentime.mainApi.domain.member.adapter.out.persistence.entity
 
 
 import jakarta.persistence.*
+import kr.teentime.mainApi.domain.member.domain.constant.MemberRole
 import kr.teentime.mainApi.domain.school.adapter.out.persistence.entity.SchoolEntity
 
 @Entity
@@ -29,6 +30,10 @@ class MemberEntity(
         @Column(unique = true,
                 nullable = false)
         var sEmail: String,
+
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false)
+        var role: MemberRole = MemberRole.STUDENT,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "school_code")
