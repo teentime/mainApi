@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.domain.member.port.out
+package kr.teentime.mainApi.domain.member.application.port.out
 
 import kr.teentime.mainApi.domain.member.domain.Member
 

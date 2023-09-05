@@ -1,8 +1,8 @@
-package kr.teentime.mainApi.domain.member.service
+package kr.teentime.mainApi.domain.member.application.service
 
+import kr.teentime.mainApi.domain.member.application.port.`in`.SearchMemberByIdUseCase
+import kr.teentime.mainApi.domain.member.application.port.out.MemberPort
 import kr.teentime.mainApi.domain.member.domain.Member
-import kr.teentime.mainApi.domain.member.port.`in`.SearchMemberByIdUseCase
-import kr.teentime.mainApi.domain.member.port.out.MemberPort
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 

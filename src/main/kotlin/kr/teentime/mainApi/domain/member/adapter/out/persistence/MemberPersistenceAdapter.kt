@@ -1,11 +1,11 @@
 package kr.teentime.mainApi.domain.member.adapter.out.persistence
 
-import kr.teentime.mainApi.domain.member.port.out.MemberPort
-import kr.teentime.mainApi.domain.member.domain.Member
-import kr.teentime.mainApi.domain.member.exception.MemberNotSavedException
 import kr.teentime.mainApi.domain.member.adapter.out.persistence.mapper.MemberMapper
 import kr.teentime.mainApi.domain.member.adapter.out.persistence.repository.MemberRepository
+import kr.teentime.mainApi.domain.member.application.port.out.MemberPort
+import kr.teentime.mainApi.domain.member.domain.Member
 import kr.teentime.mainApi.domain.member.exception.MemberNotFoundException
+import kr.teentime.mainApi.domain.member.exception.MemberNotSavedException
 import org.springframework.stereotype.Repository
 
 @Repository
