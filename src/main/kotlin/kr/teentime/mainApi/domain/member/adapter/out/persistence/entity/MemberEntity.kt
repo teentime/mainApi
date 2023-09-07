@@ -16,15 +16,14 @@ class MemberEntity(
                 length = 10,
                 unique = true)
         var nickname: String,
-        @Column(nullable = false,
-                unique = true)
+        @Column(nullable = false)
         var password: String,
 
         /** 전화번호 */
         @Column(length = 11,
                 unique = true,
                 nullable = false)
-        var pNumber: String,
+        var phoneNumber: String,
 
         /** 학교 이메일 */
         @Column(unique = true,

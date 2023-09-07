@@ -13,4 +13,5 @@ enum class ErrorCode(
     INTERNAL_SERVER_ERROR("서버 에러!", 500),
     FORBIDDEN_ERROR("접근 권한이 없습니다.", 403),
     UNAUTHORIZED_ERROR("미로그인 사용자입니다.", 401),
+    MEMBER_DUPLICATED_ERROR("이미 존재하는 회원입니다.", 409),
 }

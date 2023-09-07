@@ -4,6 +4,7 @@ import kr.teentime.mainApi.domain.member.adapter.out.persistence.mapper.MemberMa
 import kr.teentime.mainApi.domain.member.adapter.out.persistence.repository.MemberRepository
 import kr.teentime.mainApi.domain.member.application.port.out.MemberPort
 import kr.teentime.mainApi.domain.member.domain.Member
+import kr.teentime.mainApi.domain.member.exception.MemberDuplicatedException
 import kr.teentime.mainApi.domain.member.exception.MemberNotFoundException
 import kr.teentime.mainApi.domain.member.exception.MemberNotSavedException
 import org.springframework.stereotype.Repository
@@ -15,6 +16,9 @@ class MemberPersistenceAdapter(
 ): MemberPort {
     override fun save(member: Member) {
         val memberEntity = mapper.toEntity(member) ?: throw MemberNotSavedException()
+
+        val findByNicknameOrPNumber = memberRepository.findByNicknameOrPhoneNumber(member.nickname, member.pNumber)
+        if (findByNicknameOrPNumber != null) throw MemberDuplicatedException()
 
         mapper.toDomain(memberRepository.save(memberEntity))
     }

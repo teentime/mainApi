@@ -16,7 +16,7 @@ class MemberMapper(
                     id = it.id,
                     nickname = it.nickname,
                     password = it.password,
-                    pNumber = it.pNumber,
+                    pNumber = it.phoneNumber,
                     sEmail = it.sEmail,
                     role = it.role,
                     school = schoolMapper.toDomain(it.school)
@@ -29,7 +29,7 @@ class MemberMapper(
                         id = it.id,
                         nickname = it.nickname,
                         password = it.password,
-                        pNumber = it.pNumber,
+                        phoneNumber = it.pNumber,
                         sEmail = it.sEmail,
                         role = it.role,
                         school = schoolMapper.toEntity(it.school)
