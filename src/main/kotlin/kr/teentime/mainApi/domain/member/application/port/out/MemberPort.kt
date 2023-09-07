@@ -1,3 +1,3 @@
 package kr.teentime.mainApi.domain.member.application.port.out
 
-interface MemberPort : QueryMemberPort
+interface MemberPort : QueryMemberPort, CommandMemberPort
