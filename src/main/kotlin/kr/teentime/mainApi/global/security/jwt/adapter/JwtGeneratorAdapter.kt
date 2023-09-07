@@ -6,10 +6,12 @@ import kr.teentime.mainApi.domain.member.domain.constant.MemberRole
 import kr.teentime.mainApi.global.security.dto.TokenDto
 import kr.teentime.mainApi.global.security.jwt.JwtProperties
 import kr.teentime.mainApi.global.security.jwt.port.JwtGeneratorPort
+import org.springframework.stereotype.Component
 import java.security.Key
 import java.time.LocalDateTime
 import java.util.*
 
+@Component
 class JwtGeneratorAdapter(
     private val jwtProperties: JwtProperties
 ) : JwtGeneratorPort {

@@ -1,5 +1,6 @@
 package kr.teentime.mainApi.domain.member.adapter.out.persistence
 
+import kr.teentime.mainApi.domain.member.adapter.`in`.web.request.LoginRequest
 import kr.teentime.mainApi.domain.member.adapter.out.persistence.mapper.MemberMapper
 import kr.teentime.mainApi.domain.member.adapter.out.persistence.repository.MemberRepository
 import kr.teentime.mainApi.domain.member.application.port.out.MemberPort
@@ -31,4 +32,14 @@ class MemberPersistenceAdapter(
 
         return mapper.toDomain(findById.get())!!
     }
+
+    override fun login(loginRequest: LoginRequest): Member {
+
+        val member = memberRepository.findByPhoneNumber(loginRequest.phoneNumber)
+            ?: throw MemberNotFoundException()
+
+        return mapper.toDomain(member)!!
+    }
+
+
 }

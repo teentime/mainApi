@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository
 interface MemberRepository : CrudRepository<MemberEntity, Long> {
 
     fun findByNicknameOrPhoneNumber(nickname: String, pNumber: String): MemberEntity?
+    fun findByPhoneNumber(phoneNumber: String): MemberEntity?
 }

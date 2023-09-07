@@ -33,12 +33,10 @@ class SecurityConfig(
                 it.requestMatchers(RequestMatcher { req ->
                         CorsUtils.isPreFlightRequest(req)
                     }).permitAll()
+
                 it.anyRequest().permitAll()
             }
-            .formLogin {
-                it.loginProcessingUrl("/login")
-            }
-
+            .formLogin { it.disable() }
             .exceptionHandling {
                 it.authenticationEntryPoint(CustomAuthenticationEntryPoint())
                     .accessDeniedHandler(CustomAccessDeniedHandler())
