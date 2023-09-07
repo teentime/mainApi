@@ -1,9 +1,10 @@
 package kr.teentime.mainApi.global.security
 
-import kr.teentime.mainApi.global.security.filter.JwtAuthFilter
+import kr.teentime.mainApi.global.security.fillter.ExceptionFilter
+import kr.teentime.mainApi.global.security.fillter.JwtAuthFilter
 import kr.teentime.mainApi.global.security.handler.CustomAccessDeniedHandler
 import kr.teentime.mainApi.global.security.handler.CustomAuthenticationEntryPoint
-import kr.teentime.mainApi.global.security.port.JwtParserPort
+import kr.teentime.mainApi.global.security.jwt.port.JwtParserPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -29,17 +30,22 @@ class SecurityConfig(
             .cors { it.disable() }
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.anyRequest().permitAll()
-                    .requestMatchers(RequestMatcher { req ->
+                it.requestMatchers(RequestMatcher { req ->
                         CorsUtils.isPreFlightRequest(req)
                     }).permitAll()
+                it.anyRequest().permitAll()
             }
+            .formLogin {
+                it.loginProcessingUrl("/login")
+            }
+
             .exceptionHandling {
                 it.authenticationEntryPoint(CustomAuthenticationEntryPoint())
                     .accessDeniedHandler(CustomAccessDeniedHandler())
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .addFilterBefore(JwtAuthFilter(jwtParserPort), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(ExceptionFilter(), JwtAuthFilter::class.java)
 
         return http.build()
     }

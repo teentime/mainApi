@@ -1,10 +1,10 @@
-package kr.teentime.mainApi.global.security.adapter
+package kr.teentime.mainApi.global.security.jwt.adapter
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
-import kr.teentime.mainApi.global.security.config.JwtProperties
-import kr.teentime.mainApi.global.security.port.JwtParserPort
+import kr.teentime.mainApi.global.security.jwt.JwtProperties
+import kr.teentime.mainApi.global.security.jwt.port.JwtParserPort
 import kr.teentime.mainApi.global.security.principal.AuthDetailsService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -18,7 +18,7 @@ class JwtParserAdapter(
 ) : JwtParserPort {
     override fun isRefreshTokenExpired(refreshToken: String): Boolean {
         runCatching {
-            getTokenBody(refreshToken, jwtProperties.refreshSecret).subject
+            getTokenBody(refreshToken, jwtProperties.refreshKey).subject
         }.onFailure {
             return true
         }
@@ -42,7 +42,7 @@ class JwtParserAdapter(
             }
 
     override fun authentication(accessToken: String): Authentication =
-        authDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessSecret).subject)
+        authDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessKey).subject)
             .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
 
     private fun getTokenBody(token: String, secret: Key): Claims =

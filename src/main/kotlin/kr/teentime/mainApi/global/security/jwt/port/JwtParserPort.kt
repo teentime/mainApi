@@ -1,4 +1,4 @@
-package kr.teentime.mainApi.global.security.port
+package kr.teentime.mainApi.global.security.jwt.port
 
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.core.Authentication
